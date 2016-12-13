@@ -1,14 +1,108 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Saasapp</title>
+    <title>SRS Portal</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+  <% if user_signed_in? %>
+    <nav class="navbar navbar-default navbar-static-top navbar-bg" role="navigation">
+      <div class='container'>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "//www.strategicretailsolutions.com", class: "navbar-brand" do %>
+            Strategic Retail Solutions //
+          <% end %>
+          <%= link_to root_path, class: "navbar-brand" do %>
+          Rep Portal
+          <% end %>
+        </div>
+        <div class="collapse navbar-collapse" id="main-nav-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Product Lines <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Colonial Elegance</a></li>
+                <li><a href="#">Genie</a></li>
+                <li><a href="#">Honeywell</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">All Stone</a></li>
+                <li><a href="#">Tuscany</a></li>
+              </ul>
+            </li>
+<!-- Dropdown for Reps -->
+            <li class="dropdown"><% if current_user.has_role? (:reps) %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rep Tools <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", new_user_profile_path(user_id: current_user.id) if user_signed_in? %></li>
+                <li><%= link_to "Literature Requests", about_path %></li>
+                <li><%= link_to "Call Sheets", new_callsheet_path %></li>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to "Store List", stores_path %></li>
+                <li><%= link_to "Territory Map", map_path %></li>
+                <li><%= link_to "Orders Testbench", orders_path %></li>
+              </ul>
+            </li>
+            <% else %><% end %>
+<!-- Dropdown for Mackenzie -->
+            <li class="dropdown"><% if current_user.has_role? (:padula) %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kenzie's Tools <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Orders", orders_path %></li>
+                <li><%= link_to "Inventory", items_path %></li>
+                <li><%= link_to "Timesheet", orders_path %></li>
+              </ul>
+            </li>
+            <% else %><% end %>
+            <li><% if user_signed_in? %>
+                  <%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-default navbar-btn' %>
+                <% else %>
+                  <%= link_to "Log In", login_path, class: "btn btn-default navbar-btn" %>
+                <% end %></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+      <%= yield %>
+  <% else %>
+        <nav class="navbar navbar-default navbar-static-top navbar-bg" role="navigation">
+      <div class='container'>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "//www.strategicretailsolutions.com", class: "navbar-brand" do %>
+            Strategic Retail Solutions //
+          <% end %>
+          <%= link_to root_path, class: "navbar-brand" do %>
+          Rep Portal
+          <% end %>
+        </div>
+        <div class="collapse navbar-collapse" id="main-nav-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><% if user_signed_in? %>
+                  <%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-default navbar-btn' %>
+                <% else %>
+                  <%= link_to "Log In", login_path, class: "btn btn-default navbar-btn" %>
+                <% end %></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+      <%= yield %>
+  <% end %>
   </body>
 </html>

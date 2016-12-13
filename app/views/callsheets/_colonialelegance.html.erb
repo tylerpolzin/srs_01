@@ -1,0 +1,248 @@
+<script>
+$(document).ready(function() {
+    $('#ce-table').DataTable();
+} );
+</script>
+<div class="form-group">
+  <label class="col-md-3 control-label" for="millwork_manager"><br>Department Manager: </label>
+  <div class="col-md-9">                     
+    <br><input id="millwork_manager" name="millwork_manager" type="text" placeholder="Millwork Manager and/or Building Materials Manager" class="form-control input-md">
+  </div>
+</div>
+
+<form class="form-horizontal">
+  <div class="container-fluid">
+    <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">Stair Displays condition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <label class="switch-check" name="ce_sd_dp">
+              <input type="radio", name="ce_sd_dp", id="ce_sd_dp-1", value="ce_sd_dp-1">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Undamaged</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_sd_dp">
+              <input type="radio", name="ce_sd_dp", id="ce_sd_dp-2", value="ce_sd_dp-2">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Damaged, see notes below</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">Bin Boxes condition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <label class="switch-check" name="ce_bins">
+              <input type="radio", name="ce_bins", id="ce_bins-1", value="ce_bins-1">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Undamaged</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_bins">
+              <input type="radio", name="ce_bins", id="ce_bins-2", value="ce_bins-2">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Damaged, see notes below</td>
+        </tr>
+      </table>
+    </div>
+    <div class="clearfix visible-md-block"></div>
+    <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">TV Display still installed?</th>
+          </tr>
+        </thead>
+        <tr>
+          <td style="width: 10%">
+            <label class="switch-check" name="ce_tv">
+              <input type="radio", name="ce_tv", id="ce_tv-1", value="ce_tv-1">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_tv">
+              <input type="radio", name="ce_tv", id="ce_tv-2", value="ce_tv-2">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>No</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">Closet Door Display condition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <label class="switch-check" name="ce_closet">
+              <input type="radio", name="ce_closet", id="ce_closet-1", value="ce_closet-1">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Undamaged</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_closet">
+              <input type="radio", name="ce_closet", id="ce_closet-2", value="ce_closet-2">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Damaged, see notes below</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">Barn Door Display condition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <label class="switch-check" name="ce_barndoor">
+              <input type="radio", name="ce_barndoor", id="ce_barndoor-1", value="ce_barndoor-1">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Undamaged</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_barndoor">
+              <input type="radio", name="ce_barndoor", id="ce_barndoor-2", value="ce_barndoor-2">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Damaged, see notes below</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch-check", name="ce_barndoor">
+              <input type="radio", name="ce_barndoor", id="ce_barndoor-3", value="ce_barndoor-3">
+              <div class="slider-check round"></div>
+            </label>
+          </td>
+          <td>Not installed in this store</td>
+        </tr>
+      </table>
+    </div>
+        <div class="col-md-4">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">Literature Reorder?</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <label class="switch" name="ce_lit">
+              <input type="checkbox", name="ce_lit", id="ce_lit-1", value="ce_lit-1">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Stair Parts Tearpads</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch", name="ce_lit">
+              <input type="checkbox", name="ce_lit", id="ce_lit-2", value="ce_lit-2">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Closet Door Brochures</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch", name="ce_lit">
+              <input type="checkbox", name="ce_lit", id="ce_lit-3", value="ce_lit-3">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Column Tearpads</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <table id="ce-table" class="table table-striped table-bordered table-hover">
+        <thead bgcolor="#969696" style="color: white">
+          <tr>
+            <th colspan="2">General Checklist</th>
+          </tr>
+        </thead>
+        <tr>
+          <td style="width: 10%">
+            <label class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Straighten product on shelves, clean up debris</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>All Bintags in place</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Defect damaged products (w/ Dept Manager approval)</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>Discuss stock &amp; display issues with on-duty Dept Manager</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</form>
+<div class="form-group">
+  <label class="col-md-3 control-label" for="ce_notes"><br>Colonial Elegance Notes</label>
+  <div class="col-md-9">                     
+    <br><textarea rows="6" class="form-control" id="ce_notes" name="ce_notes", placeholder="Put any notes about damaged displays, missing POP signage or ID cards here"></textarea>
+  </div>
+</div>
