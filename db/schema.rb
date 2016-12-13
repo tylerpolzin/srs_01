@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213005020) do
+ActiveRecord::Schema.define(version: 20161213044657) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "firstname"
@@ -26,6 +26,103 @@ ActiveRecord::Schema.define(version: 20161213005020) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "dept400calllogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.string   "dept_manager_400"
+    t.boolean  "ce_stairdisplays"
+    t.boolean  "ce_binboxes"
+    t.boolean  "ce_tvdisplay"
+    t.boolean  "ce_closetdoors"
+    t.integer  "ce_barndoors"
+    t.boolean  "ce_lit_tearpads"
+    t.boolean  "ce_lit_closetdoors"
+    t.boolean  "ce_lit_columns"
+    t.text     "ce_notes"
+    t.boolean  "genie_sku_4251691"
+    t.boolean  "genie_sku_4251689"
+    t.boolean  "genie_sku_4252547"
+    t.boolean  "genie_sku_4252548"
+    t.boolean  "genie_sku_4254040"
+    t.boolean  "genie_sku_4251720"
+    t.boolean  "genie_sku_4252388"
+    t.boolean  "genie_sku_4252445"
+    t.boolean  "genie_sku_4252391"
+    t.boolean  "genie_sku_4251685"
+    t.text     "genie_notes"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "dept600calllogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.string   "dept_manager_600"
+    t.boolean  "hw_sku_3351566"
+    t.boolean  "hw_sku_3351579"
+    t.boolean  "hw_sku_6360310"
+    t.boolean  "hw_sku_6360320"
+    t.boolean  "hw_sku_6360325"
+    t.boolean  "hw_sku_6360328"
+    t.boolean  "hw_sku_3351813"
+    t.boolean  "hw_sku_3351830"
+    t.boolean  "hw_sku_3351832"
+    t.boolean  "hw_sku_3351833"
+    t.boolean  "hw_sku_6360205"
+    t.boolean  "hw_sku_6360210"
+    t.boolean  "hw_sku_6360220"
+    t.boolean  "hw_sku_6360150"
+    t.boolean  "hw_sku_6360200"
+    t.boolean  "hw_sku_3351837"
+    t.boolean  "hw_sku_3351779"
+    t.boolean  "hw_sku_3351885"
+    t.boolean  "hw_sku_3351785"
+    t.boolean  "hw_sku_3351798"
+    t.boolean  "hw_sku_3351879"
+    t.boolean  "hw_sku_3351895"
+    t.boolean  "hw_sku_3352001"
+    t.boolean  "hw_sku_3352014"
+    t.boolean  "hw_sku_3352027"
+    t.boolean  "hw_sku_3352030"
+    t.boolean  "hw_sku_6399948"
+    t.boolean  "hw_sku_6399949"
+    t.boolean  "hw_sku_6399978"
+    t.boolean  "hw_sku_6399979"
+    t.boolean  "hw_lit_thermostat"
+    t.boolean  "hw_lit_airquality"
+    t.text     "honeywell_notes"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "dept601calllogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.boolean  "summit_sku_6471315"
+    t.boolean  "summit_sku_6471317"
+    t.boolean  "summit_sku_6471323"
+    t.boolean  "summit_sku_6471320"
+    t.boolean  "summit_sku_6471321"
+    t.boolean  "summit_sku_6471330"
+    t.boolean  "summit_sku_6471333"
+    t.boolean  "summit_sku_6471305"
+    t.boolean  "summit_sku_6471322"
+    t.boolean  "summit_sku_6471302"
+    t.boolean  "summit_sku_6473100"
+    t.boolean  "summit_sku_6471335"
+    t.boolean  "summit_sku_6471325"
+    t.boolean  "summit_sku_6473918"
+    t.boolean  "summit_sku_6473917"
+    t.boolean  "summit_sku_6473900"
+    t.boolean  "summit_sku_6473136"
+    t.text     "summit_notes"
+    t.boolean  "allstone_lit"
+    t.text     "allstone_notes"
+    t.text     "tuscany_notes"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "ecommorders", force: :cascade do |t|
@@ -96,6 +193,21 @@ ActiveRecord::Schema.define(version: 20161213005020) do
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string   "name"
+    t.string   "country"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.float    "length"
+    t.float    "width"
+    t.float    "height"
+    t.float    "weight"
+    t.boolean  "cylinder"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "stockmovements", force: :cascade do |t|

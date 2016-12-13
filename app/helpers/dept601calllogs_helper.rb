@@ -1,0 +1,2 @@
+module Dept601calllogsHelper
+end

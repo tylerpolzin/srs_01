@@ -1,0 +1,2 @@
+class Dept601calllogsController < ApplicationController
+end
