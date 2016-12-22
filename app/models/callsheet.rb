@@ -1,3 +1,3 @@
 class Callsheet < ActiveRecord::Base
-  resourcify
+  has_one :store
 end

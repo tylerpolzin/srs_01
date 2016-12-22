@@ -1,2 +1,0 @@
-class Dept400calllogsController < ApplicationController
-end

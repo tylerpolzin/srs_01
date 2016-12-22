@@ -1,4 +1,4 @@
-class CreateShipments < ActiveRecord::Migration[5.0]
+class Shipments < ActiveRecord::Migration[5.0]
   def change
     create_table :shipments do |t|
       t.string :name
@@ -11,7 +11,6 @@ class CreateShipments < ActiveRecord::Migration[5.0]
       t.float :height
       t.float :weight
       t.boolean :cylinder
-
       t.timestamps
     end
   end

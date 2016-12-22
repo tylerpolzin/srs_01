@@ -1,69 +1,73 @@
-<form class="form-horizontal">
-<%= form_for @profile, url: user_profile_path do |f| %>
-  <div class="form-group">
-    <%= f.label :name, "Name:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-11">
-      <%= f.text_field :name, class: 'form-control' %>
-    </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :position, "Position:", class: 'col-sm-1 control-label' %>
-      <div class="col-sm-11">
-        <%= f.select :position, ['AP/AR/Customer Service', 'Warehouse', 'Owner', 'Territory Rep', 'Vendor Sales'], {}, class: 'form-control' %>
+<%= form_for @profile, url: user_profile_path, :html => { :multipart => true } do |f| %>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <%= f.label :name, "Name:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name, class: 'form-control' %>
       </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :address, "Address:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-11">
-      <%= f.text_field :address, class: 'form-control' %>
     </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :city, "City:", class: 'col-md-1 control-label' %>
-      <div class="col-md-6">
-        <%= f.text_field :city, class: 'form-control' %>
+    <div class="form-group">
+        <%= f.label :position, "Position:", class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.text_field :position, class: 'form-control' %>
+        </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :address, "Address:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :address, class: 'form-control' %>
       </div>
-      <%= f.label :state, "State:", class: 'col-md-1 control-label' %>
-      <div class="col-md-4">
-        <%= f.select :state, options_for_select(us_states),{}, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+        <%= f.label :city, "City:", class: 'col-md-1 control-label' %>
+        <div class="col-md-3">
+          <%= f.text_field :city, class: 'form-control' %>
+        </div>
+        <%= f.label :state, "State:", class: 'col-md-1 control-label' %>
+        <div class="col-md-3">
+          <%= f.select :state, options_for_select(us_states),{}, class: 'form-control' %>
+        </div>
+        <%= f.label :zipcode, "Zip:", class: 'col-md-1 control-label' %>
+        <div class="col-md-3">
+          <%= f.text_field :zipcode, class: 'form-control' %>
+        </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone1, "Phone:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-3">
+        <%= f.text_field :phone1, class: 'form-control' %>
       </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone1, "Phone:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-3">
-      <%= f.text_field :phone1, class: 'form-control' %>
+      <%= f.label :phone1_type, "Type:", class: 'col-sm-1 control-label' %>
+      <div class="col-sm-3">
+        <%= f.select :phone1_type, ['Home', 'Cell'], {}, class: 'form-control' %>
+      </div>
     </div>
-    <%= f.label :phone1_type, "Type:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-2">
-      <%= f.select :phone1_type, ['Home', 'Cell'], {}, class: 'form-control' %>
-    </div><div class="col-sm-5"></div>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone2, "Phone:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-3">
-      <%= f.text_field :phone2, class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :phone2, "Phone:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-3">
+        <%= f.text_field :phone2, class: 'form-control' %>
+      </div>
+      <%= f.label :phone2_type, "Type:", class: 'col-sm-1 control-label' %>
+      <div class="col-sm-3">
+        <%= f.select :phone2_type, ['Home', 'Cell'], {}, class: 'form-control' %>
+      </div><div class="col-sm-5"></div>
     </div>
-    <%= f.label :phone2_type, "Type:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-2">
-      <%= f.select :phone2_type, ['Home', 'Cell'], {}, class: 'form-control' %>
-    </div><div class="col-sm-5"></div>
-  </div>
-  <div class="form-group">
-    <%= f.label :email, "Email:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-11">
-      <%= f.text_field :email, class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :email, "Email:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :notes, "Notes:", class: 'col-sm-1 control-label' %>
-    <div class="col-sm-11">
-      <%= f.text_area :notes, class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :notes, "Notes:", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :notes, class: 'form-control' %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.submit "Update Profile", class: 'btn btn-primary' %>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <%= f.submit "Update Profile", class: 'btn btn-primary' %>
+      </div>
     </div>
   </div>
 <% end %>
-</form>

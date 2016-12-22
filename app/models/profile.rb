@@ -1,3 +1,4 @@
 class Profile < ActiveRecord::Base
-  resourcify
+  rolify
+    belongs_to :user
 end

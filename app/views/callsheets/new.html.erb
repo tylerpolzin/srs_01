@@ -2,15 +2,27 @@
   <div class="well">
     <legend class="text-center">Menards Call Sheets</legend>
     <div class="form-horizontal">
-      <label class="col-md-3 control-label" for="store_location">Store Location</label>
-        <div class="col-md-9">
-          <select id="store_location" name="store_location" class="form-control">
-            <option value="store_null">Select Location ...</option>
-              <% @repstores.each do |s| %>
-              <option value="store">Store #<%= s.yard %>, <%= s.name %></option>
-              <% end %>
-          </select>
-        </div><br><br><br>
+      <label class="col-md-2 control-label" for="storeSelect">Store Location</label>
+      <div class="col-md-4">
+        <select id="storeSelect" name="storeSelect" class="form-control">
+          <option value="">Select Location ...</option>
+            <% @repstores.each do |s| %>
+            <option value="<%= s.id %>">Store #<%= s.yard %>, <%= s.name %></option>
+            <% end %>
+        </select>
+      </div>
+      <label class="col-md-3 control-label" for="datepicker">Date of Visit</label>
+      <div class="col-md-3">
+        <div id="datecontainer">
+          <input
+            type="text"
+            placeholder="Select Date..."
+            id="datepicker"
+            class="form-control"
+          >
+        </div>
+      </div>
+      <br><br>
       <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#tabs-1">Colonial Elegance</a></li>
           <li><a data-toggle="tab" href="#tabs-2">Genie</a></li>
@@ -39,14 +51,116 @@
           <%= render 'tuscany' %>
         </div>
       </div>
+<!-- Hidden Form -->
+      <%= form_for @callsheet, url: callsheets_path, remote: true, :html => { :multipart => true} do |f| %>
       <div class="form-group">
+        <div class="col-md-8">
+          <table id="ce_table">
+              <tr>
+                <th>ID</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td><%= f.text_field :user_id, :value => @callsheet.user_id %></td>
+                <td><%= f.text_field :store_id, :id => 'storeSelectHidden' %></td>
+                <td><%= f.text_field :visit_date, :id => 'datepickerHidden' %></td>
+                <td><%= f.text_field :dept_manager_400, :id => 'millwork_managerHidden' %></td>
+                <td><%= f.text_field :ce_stairdisplays, :id => 'ceSdcHidden' %></td>
+                <td><%= f.text_field :ce_binboxes, :id => 'ceBinsHidden' %></td>
+                <td><%= f.text_field :ce_tvdisplay, :id => 'ceTvHidden' %></td>
+                <td><%= f.text_field :ce_closetdoors, :id => 'ceClosetHidden' %></td>
+                <td><%= f.text_field :ce_barndoors, :id => 'ceBarndoorHidden' %></td>
+                <td><%= f.text_field :ce_lit_tearpads, :id => 'ceLit-1Hidden' %></td>
+                <td><%= f.text_field :ce_lit_closetdoors, :id => 'ceLit-2Hidden' %></td>
+                <td><%= f.text_field :ce_lit_columns, :id => 'ceLit-3Hidden' %></td>
+                <td><%= f.text_field :ce_notes, :id => 'ceNotesHidden' %></td>
+                
+                <td><%= f.text_field :genie_sku_4251691, :id => 'genieSku4251691Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4251689, :id => 'genieSku4251689Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4252547, :id => 'genieSku4252547Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4252548, :id => 'genieSku4252548Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4254040, :id => 'genieSku4254040Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4251720, :id => 'genieSku4251720Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4252388, :id => 'genieSku4252388Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4252445, :id => 'genieSku4252445Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4252391, :id => 'genieSku4252391Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :genie_sku_4251685, :id => 'genieSku4251685Hidden', :value => 'Out of Stock, Remove from Callsheet!' %></td>
+                <td><%= f.text_field :genie_notes, :id => 'genieNotesHidden' %></td>
+                
+                <td><%= f.text_field :dept_manager_600, :id => 'plumbing_managerHidden' %></td>
+                <td><%= f.text_field :hw_sku_3351566, :id => 'hwSku3351566Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351579, :id => 'hwSku3351579Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360310, :id => 'hwSku6360310Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360320, :id => 'hwSku6360320Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360325, :id => 'hwSku6360325Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360328, :id => 'hwSku6360328Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351813, :id => 'hwSku3351813Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351830, :id => 'hwSku3351830Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351832, :id => 'hwSku3351832Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351833, :id => 'hwSku3351833Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360205, :id => 'hwSku6360205Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360210, :id => 'hwSku6360210Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360220, :id => 'hwSku6360220Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360150, :id => 'hwSku6360150Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6360200, :id => 'hwSku6360200Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351837, :id => 'hwSku3351837Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351779, :id => 'hwSku3351779Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351885, :id => 'hwSku3351885Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351785, :id => 'hwSku3351785Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351798, :id => 'hwSku3351798Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351879, :id => 'hwSku3351879Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3351895, :id => 'hwSku3351895Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3352001, :id => 'hwSku3352001Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3352014, :id => 'hwSku3352014Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3352027, :id => 'hwSku3352027Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_3352030, :id => 'hwSku3352030Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6399948, :id => 'hwSku6399948Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6399949, :id => 'hwSku6399949Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6399978, :id => 'hwSku6399978Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_sku_6399979, :id => 'hwSku6399979Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :hw_lit_thermostat, :id => 'hwLit1Hidden' %></td>
+                <td><%= f.text_field :hw_lit_airquality, :id => 'hwLit2Hidden' %></td>
+                <td><%= f.text_field :honeywell_notes, :id => 'hwNotesHidden' %></td>
+                
+                <td><%= f.text_field :summit_sku_6471315, :id => 'summitSku6471315Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471317, :id => 'summitSku6471317Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471323, :id => 'summitSku6471323Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471320, :id => 'summitSku6471320Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471321, :id => 'summitSku6471321Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471330, :id => 'summitSku6471330Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471333, :id => 'summitSku6471333Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471305, :id => 'summitSku6471305Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471322, :id => 'summitSku6471322Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471302, :id => 'summitSku6471302Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6473100, :id => 'summitSku6473100Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471335, :id => 'summitSku6471335Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6471325, :id => 'summitSku6471325Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6473918, :id => 'summitSku6473918Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6473917, :id => 'summitSku6473917Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6473900, :id => 'summitSku6473900Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_sku_6473136, :id => 'summitSku6473136Hidden', :value => 'Out of Stock' %></td>
+                <td><%= f.text_field :summit_notes, :id => 'summitNotesHidden' %></td>
+                
+                <td><%= f.text_field :allstone_lit, :id => 'allstoneLitHidden' %></td>
+                <td><%= f.text_field :allstone_notes, :id => 'allstoneNotesHidden' %></td>
+                <td><%= f.text_field :tuscany_notes, :id => 'tuscanyNotesHidden' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+<!-- End Hidden Form -->
         <label class="col-md-6 control-label" for="cs_buttons"><br>Process Data</label>
         <div class="col-md-6">
-          <br><button id="cs_save" name="cs_save" class="btn btn-success">Save</button>
-          <button id="cs_submit" name="cs_submit" class="btn btn-primary">Submit</button>
+          <div id="submitConfirm" style="display:none" title="Submit Callsheet?">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Only submit Callsheets that are 100% complete.  If not completed, cancel this operation and click "Save."  Are you sure you want to Submit?</p>
+          </div>
+          <%= f.submit "Save", :id => "cs_save", :name => "cs_save", class: 'btn btn-success' %>
+          <%= f.submit "Submit", :id => "cs_submit", :name => "cs_submit", class: 'btn btn-primary' %>
           <button id="cs_reset" name="cs_reset" class="btn btn-danger">Reset</button>
         </div>
       </div>
-    </div
+      <% end %>
+    </div>
   </div>
 </div>

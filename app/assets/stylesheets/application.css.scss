@@ -11,10 +11,14 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import "jquery-ui";
+@import "jquery-ui.structure";
+@import "jquery-ui.theme";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
 
 
 body {

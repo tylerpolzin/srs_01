@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-    
-  resources :dept601calllogs
-  resources :dept600calllogs
-  resources :dept400calllogs
   resources :shipments
   devise_for :users, controllers: { registrations: "registrations"}
   root to: 'pages#home'
@@ -11,12 +7,17 @@ Rails.application.routes.draw do
   get 'map', to: 'pages#map'
   resources :stores
   resources :items
+  
   resources :callsheets
-  resources :ecommorders
+  
+  get 'ecommorders', to: 'ecommorders#show'
+  
   resources :shipments # possibly temporary tutorial for :ecommorders
+  
   resources :users do
     resource :profile
   end
+  get 'profiles' => 'profiles#index', as: :profiles
   
   devise_scope :user do
     get 'login', to: 'devise/sessions#new'

@@ -1,31 +1,28 @@
-<script>
-$(document).ready(function() {
-    $('#allstone-table').DataTable();
-} );
-</script>
 <form class="form-horizontal">
   <div class="container-fluid">
-    <table id="allstone-table" class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover">
       <thead bgcolor="#969696" style="color: white">
         <tr>
           <th colspan="2">Literature Reorder?</th>
         </tr>
       </thead>
-      <tr>
-        <td style="width: 10%">
-          <label class="switch">
-            <input type="checkbox">
-            <div class="slider round"></div>
-          </label>
-        </td>
-        <td>All Stone Brochures</td>
-      </tr>
+      <tbody>
+        <tr>
+          <td style="width: 10%">
+            <label class="switch">
+              <input type="checkbox" name="allstoneLit" id="allstoneLit">
+              <div class="slider round"></div>
+            </label>
+          </td>
+          <td>All Stone Brochures</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </form>
 <div class="form-group">
   <label class="col-md-2 control-label" for="allstone_notes"><br>All Stone Notes</label>
   <div class="col-md-10">                     
-    <br><textarea rows="6" class="form-control" id="allstone_notes" name="allstone_notes"></textarea>
+    <br><textarea rows="6" class="form-control" id="allstoneNotes" name="allstoneNotes"></textarea>
   </div>
 </div>
