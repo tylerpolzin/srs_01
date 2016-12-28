@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   get 'map', to: 'pages#map'
   resources :stores
   resources :items
-  
   resources :callsheets
-  
+  get 'callsheet_dashboard', to: 'callsheets#dashboard'
+  resources :new_callsheets, only: :create
   get 'ecommorders', to: 'ecommorders#show'
   
   resources :shipments # possibly temporary tutorial for :ecommorders

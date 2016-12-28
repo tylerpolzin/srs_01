@@ -1,28 +1,7 @@
 <div class="col-md-7 col-md-offset-3">
   <div class="well">
-    <legend class="text-center">Menards Call Sheets</legend>
+    <legend class="text-center">New Callsheet for <%= @callsheet.store_name %> (<%= @callsheet.store_abbrv %> #<%= @callsheet.store_number %>) on <%= @callsheet.visit_date %></legend>
     <div class="form-horizontal">
-      <label class="col-md-2 control-label" for="storeSelect">Store Location</label>
-      <div class="col-md-4">
-        <select id="storeSelect" name="storeSelect" class="form-control">
-          <option value="">Select Location ...</option>
-            <% @repstores.each do |s| %>
-            <option value="<%= s.id %>">Store #<%= s.yard %>, <%= s.name %></option>
-            <% end %>
-        </select>
-      </div>
-      <label class="col-md-3 control-label" for="datepicker">Date of Visit</label>
-      <div class="col-md-3">
-        <div id="datecontainer">
-          <input
-            type="text"
-            placeholder="Select Date..."
-            id="datepicker"
-            class="form-control"
-          >
-        </div>
-      </div>
-      <br><br>
       <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#tabs-1">Colonial Elegance</a></li>
           <li><a data-toggle="tab" href="#tabs-2">Genie</a></li>
@@ -55,15 +34,18 @@
       <%= form_for @callsheet, url: callsheets_path, remote: true, :html => { :multipart => true} do |f| %>
       <div class="form-group">
         <div class="col-md-8">
-          <table id="ce_table">
+          <table id="ce_table" class="hidden">
               <tr>
                 <th>ID</th>
               </tr>
               <tr>
                 <td></td>
                 <td><%= f.text_field :user_id, :value => @callsheet.user_id %></td>
-                <td><%= f.text_field :store_id, :id => 'storeSelectHidden' %></td>
-                <td><%= f.text_field :visit_date, :id => 'datepickerHidden' %></td>
+                <td><%= f.text_field :store_id, :value => @callsheet.store_id %></td>
+                <td><%= f.text_field :store_number, :value => @callsheet.store_number %></td>
+                <td><%= f.text_field :store_abbrv, :value => @callsheet.store_abbrv %></td>
+                <td><%= f.text_field :store_name, :value => @callsheet.store_name %></td>
+                <td><%= f.text_field :visit_date, :value => @callsheet.visit_date %></td>
                 <td><%= f.text_field :dept_manager_400, :id => 'millwork_managerHidden' %></td>
                 <td><%= f.text_field :ce_stairdisplays, :id => 'ceSdcHidden' %></td>
                 <td><%= f.text_field :ce_binboxes, :id => 'ceBinsHidden' %></td>
@@ -144,6 +126,7 @@
                 <td><%= f.text_field :allstone_lit, :id => 'allstoneLitHidden' %></td>
                 <td><%= f.text_field :allstone_notes, :id => 'allstoneNotesHidden' %></td>
                 <td><%= f.text_field :tuscany_notes, :id => 'tuscanyNotesHidden' %></td>
+                <td><%= f.text_field :callsheet_complete, :id => 'callsheetComplete' %></td>
               </tr>
             </tbody>
           </table>
@@ -153,7 +136,10 @@
         <label class="col-md-6 control-label" for="cs_buttons"><br>Process Data</label>
         <div class="col-md-6">
           <div id="submitConfirm" style="display:none" title="Submit Callsheet?">
-            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Only submit Callsheets that are 100% complete.  If not completed, cancel this operation and click "Save."  Are you sure you want to Submit?</p>
+            <p><span class="fa fa-paper-plane-o" style="float:left; margin:12px 12px 20px 0;"></span>Only submit Callsheets that are 100% complete.  Otherwise, cancel this operation and click "Save."  Are you sure you want to Submit?</p>
+          </div>
+          <div id="saveConfirm" style="display:none" title="Callsheet saved!">
+            <p><span class="fa fa-check-square-o" style="float:left; margin:12px 12px 20px 0;"></span>Callsheet information has been saved.  You can come back to this entry at any time, make sure to submit it when complete!</p>
           </div>
           <%= f.submit "Save", :id => "cs_save", :name => "cs_save", class: 'btn btn-success' %>
           <%= f.submit "Submit", :id => "cs_submit", :name => "cs_submit", class: 'btn btn-primary' %>

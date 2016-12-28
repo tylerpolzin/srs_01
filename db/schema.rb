@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222013248) do
+ActiveRecord::Schema.define(version: 20161227020151) do
 
   create_table "callsheets", force: :cascade do |t|
     t.integer  "user_id"
@@ -95,6 +95,9 @@ ActiveRecord::Schema.define(version: 20161222013248) do
     t.boolean  "callsheet_complete"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "store_number"
+    t.string   "store_abbrv"
+    t.string   "store_name"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -153,6 +156,16 @@ ActiveRecord::Schema.define(version: 20161222013248) do
     t.boolean  "active"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "new_callsheets", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_number"
+    t.date     "callsheet_date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "store_abbrv"
+    t.string   "store_name"
   end
 
   create_table "profiles", force: :cascade do |t|

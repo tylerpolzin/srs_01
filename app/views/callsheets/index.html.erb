@@ -10,71 +10,179 @@ $(document).ready(function() {
   <div class="col-md-12">
     <div class="row">
       <div class="well">
-        <h1 class="text-center">Profile List</h1>
+        <h1 class="text-center">Master Callsheet Index</h1>
         <table id="user-list" class="table table-striped table-bordered table-hover">
           <thead bgcolor="#969696" style="color: white">
             <tr>
+              <th>ID</th>
               <th>UID</th>
               <th>Store ID</th>
               <th>Visit Date</th>
               <th>Millwork Manager</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              
+              <th>Stair Display Condition</th>
+              <th>Bin Boxes Condition</th>
+              <th>TV Display Still Installed?</th>
+              <th>Closet Door Display Condition</th>
+              <th>Barn Door Display Condition</th>
+              <th>Stairparts Tearpads</th>
+              <th>Closet Door Brochures</th>
+              <th>Column Tearpads</th>
+              <th>Colonial Elegance Notes</th>
+              <th>Genie SKU 425-1691</th>
+              <th>425-1689</th>
+              <th>425-2547</th>
+              <th>425-2548</th>
+              <th>425-4040</th>
+              <th>425-1720</th>
+              <th>425-2388</th>
+              <th>425-2445</th>
+              <th>425-2391</th>
+              <th>425-1685</th>
+              <th>Genie Notes</th>
+              <th>Plumbing Manager</th>
+              <th>Honeywell SKU 335-1566</th>
+              <th>335-1579</th>
+              <th>636-0310</th>
+              <th>636-0320</th>
+              <th>636-0325</th>
+              <th>636-0328</th>
+              <th>335-1813</th>
+              <th>335-1830</th>
+              <th>335-1832</th>
+              <th>335-1833</th>
+              <th>636-0205</th>
+              <th>636-0210</th>
+              <th>636-0220</th>
+              <th>636-0150</th>
+              <th>636-0200</th>
+              <th>335-1837</th>
+              <th>335-1779</th>
+              <th>335-1885</th>
+              <th>335-1785</th>
+              <th>335-1798</th>
+              <th>335-1879</th>
+              <th>335-1895</th>
+              <th>335-2001</th>
+              <th>335-2014</th>
+              <th>335-2027</th>
+              <th>335-2030</th>
+              <th>639-9948</th>
+              <th>639-9949</th>
+              <th>639-9978</th>
+              <th>639-9979</th>
+              <th>Thermostat Brochures</th>
+              <th>Air Quality Brochures</th>
+              <th>Honeywell Notes</th>
+              <th>Summit SKU 647-1315</th>
+              <th>647-1317</th>
+              <th>647-1323</th>
+              <th>647-1320</th>
+              <th>647-1321</th>
+              <th>647-1330</th>
+              <th>647-1333</th>
+              <th>647-1305</th>
+              <th>647-1322</th>
+              <th>647-1302</th>
+              <th>647-3100</th>
+              <th>647-1335</th>
+              <th>647-1325</th>
+              <th>647-3918</th>
+              <th>647-3917</th>
+              <th>647-3900</th>
+              <th>647-3136</th>
+              <th>Summit Notes</th>
+              <th>All Stone Brochures</th>
+              <th>All Stone Notes</th>
+              <th>Tuscany Notes</th>
+              <th>Callsheet Completed?</th>
+              <th>Entry Creation Date</th>
+              <th>Entry Last Updated</th>
             </tr>
           </thead>
           <tbody>
-            <% @profile.each do |p| %>
+            <% @callsheet.each do |p| %>
             <tr>
+              <td><div style='width: 10px'><%= p.id %></div></td>
               <td><div style='width: 10px'><%= p.user_id %></div></td>
-              <td><div style='width: 100px'><%= p.name %></div></td>
-              <td><div style='width: 120px'><%= p.position %></div></td>
-              <td><div style='width: 260px'><%= p.address %></div></td>
-              <td><div style='width: 120px'><%= p.city %></div></td>
-              <td><div style='width: 10px'><%= p.state %></div></td>
-              <td><div style='width: 40px'><%= p.zipcode %></div></td>
-              <td><div style='width: 80px'><%= p.phone1 %></div></td>
-              <td><div style='width: 20px'><%= p.phone1_type %></div></td>
-              <td><div style='width: 80px'><%= p.phone2 %></div></td>
-              <td><div style='width: 20px'><%= p.phone2_type %></div></td>
-              <td><div style='width: 260px'><%= p.email %></div></td>
-              <td><div style='width: 300px'><%= p.notes %></div></td>
+              <td><div style='width: 20px'><%= p.store_id %></div></td>
+              <td><div style='width: 80px'><%= p.visit_date %></div></td>
+              <td><div style='width: 180px'><%= p.dept_manager_400 %></div></td>
+              <td><div style='width: 80px'><%= p.ce_stairdisplays %></div></td>
+              <td><div style='width: 80px'><%= p.ce_binboxes %></div></td>
+              <td><div style='width: 40px'><%= p.ce_tvdisplay %></div></td>
+              <td><div style='width: 80px'><%= p.ce_closetdoors %></div></td>
+              <td><div style='width: 80px'><%= p.ce_barndoors %></div></td>
+              <td><div style='width: 130px'><%= p.ce_lit_tearpads %></div></td>
+              <td><div style='width: 150px'><%= p.ce_lit_closetdoors %></div></td>
+              <td><div style='width: 120px'><%= p.ce_lit_columns %></div></td>
+              <td><div style='width: 200px'><%= p.ce_notes %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4251691 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4251689 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4252547 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4252548 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4254040 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4251720 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4252388 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4252445 %></div></td>
+              <td><div style='width: 80px'><%= p.genie_sku_4252391 %></div></td>
+              <td><div style='width: 240px'><%= p.genie_sku_4251685 %></div></td>
+              <td><div style='width: 200px'><%= p.genie_notes %></div></td>
+              <td><div style='width: 180px'><%= p.dept_manager_600 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351566 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351579 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360310 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360320 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360325 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360328 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351813 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351830 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351832 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351833 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360205 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360210 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360220 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360150 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6360200 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351837 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351779 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351885 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351785 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351798 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351879 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3351895 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3352001 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3352014 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3352027 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_3352030 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6399948 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6399949 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6399978 %></div></td>
+              <td><div style='width: 80px'><%= p.hw_sku_6399979 %></div></td>
+              <td><div style='width: 170px'><%= p.hw_lit_thermostat %></div></td>
+              <td><div style='width: 200px'><%= p.hw_lit_airquality %></div></td>
+              <td><div style='width: 200px'><%= p.honeywell_notes %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471315 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471317 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471323 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471320 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471321 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471330 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471333 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471305 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471322 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471302 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6473100 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471335 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6471325 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6473918 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6473917 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6473900 %></div></td>
+              <td><div style='width: 80px'><%= p.summit_sku_6473136 %></div></td>
+              <td><div style='width: 200px'><%= p.summit_notes %></div></td>
+              <td><div style='width: 140px'><%= p.allstone_lit %></div></td>
+              <td><div style='width: 200px'><%= p.allstone_notes %></div></td>
+              <td><div style='width: 200px'><%= p.tuscany_notes %></div></td>
+              <td><div style='width: 20px'><%= p.callsheet_complete %></div></td>
               <td><div style='width: 170px'><%= p.created_at %></div></td>
               <td><div style='width: 170px'><%= p.updated_at %></div></td>
             </tr>

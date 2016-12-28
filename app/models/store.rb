@@ -1,3 +1,3 @@
 class Store < ActiveRecord::Base
-  resourcify
+  belongs_to :callsheet
 end
