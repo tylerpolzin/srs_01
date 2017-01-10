@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="col-md-12">
+    <div class="well well-sm show-well">
+      <div class="row">
+        <div class="col-md-4">
+          <p class="store-showheader text-center">Store Information</p><br>
+          <p class="storename-text text-center"><%= @stores.name %> (<%= @stores.abbrv %> #<%= @stores.yard %>)</p>
+          <div class="address-text text-center">
+            <p><%= @stores.address %></p>
+            <p><%= @stores.city %>, <%= @stores.state %> <%= @stores.zipcode.insert(5, '-') %></p>
+          </div>
+          <table class="table table-bordered store-showtable">
+            <tr>
+              <td>Prototype</td>
+              <td><%= @stores.prototype %></td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td><%= @stores.phone.insert(0, '(').insert(4, ')').insert(5, ' ').insert(9, '-') %></td>
+            </tr>
+            <tr>
+              <td>Serviced By</td>
+              <td><%= @stores.service_rep.titleize %></td>
+            </tr>
+            <tr>
+              <td>Last Visit</td>
+              <td><%= @stores.lastvisit.strftime("%B %d, %Y") %></td>
+            </tr>
+            
+            <tr>
+              <td>Entry Last Update</td>
+              <td><%= @stores.updated_at.strftime("%B %d, %Y") %></td>
+            </tr>
+            <tr>
+              <td>Latitude/Longitude</td>
+              <td><%= @stores.lat %>, <%= @stores.long %></td>
+            </tr>
+            <tr>
+              <td>Notes</td>
+              <td><%= @stores.notes %></td>
+            </tr>
+          </table>
+          <%= button_to "Edit Info", edit_store_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+        </div>
+<!-- Start 'Callsheet History' -->
+        <div class="col-md-4">
+          <p class="text-center callsheet-header">Callsheet History</p>
+          <table class="table table-bordered">
+            <thead class="selection-header">
+              <tr>
+                <th>Date of Visit</th>
+                <th>Summary Report</th>
+              </tr>
+            </thead>
+            <tbody class="store-callsheet-history-table">
+            <% @callsheets.each do |s| %>
+              <tr>
+                <td><%= s.visit_date.strftime("%B %d, %Y") %></td>
+                <td><%= button_to "View Summary", callsheet_path(id: s.id), method: :get, class: 'btn btn-info' %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <%= form_for @newcallsheet, url: new_callsheets_path, remote: true, :html => {:multipart => true} do |f| %>
+            <%= f.hidden_field :store_id, :value => @stores.id %>
+            <%= f.hidden_field :store_number, :value => @stores.yard %>
+            <%= f.hidden_field :store_abbrv, :value => @stores.abbrv %>
+            <%= f.hidden_field :store_name, :value => @stores.name.titleize %>
+            <%= f.hidden_field :callsheet_date, :id => 'datepickerHidden' %>
+            <div class="col-md-6">
+              <div id="startNewCallsheet" style="display:none" title="Start New Callsheet">
+                <div id="datecontainer">
+                  <input type="text" placeholder="Select Date..." id="datepicker" class="form-control"><br>
+                </div>
+              </div>
+              <%= f.submit "Start New Callsheet", :id => "newCallsheet", :name => "newCallsheet", class: 'btn btn-primary' %>
+            </div>
+            
+            
+          <% end %>
+        </div>
+<!-- Start 'Order History' -->
+        <div class="col-md-4">
+          <p class="text-center callsheet-header">Order History</p>
+          <table class="table table-bordered">
+            <thead class="selection-header">
+              <tr>
+                <th>Order Date</th>
+                <th>Product Ordered</th>
+              </tr>
+            </thead>
+            <tbody class="store-callsheet-history-table">
+              <tr>
+                <td>Order Date goes here</td>
+                <td>Product Ordered goes here</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-primary">Literature Request Form</button>
+        </div>
+<!-- -->
+      </div>
+    </div>
+  </div>
+</div>

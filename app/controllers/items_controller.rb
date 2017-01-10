@@ -4,16 +4,38 @@ class ItemsController < ApplicationController
       @items = Item.all
    end
    
-   def new
+   def show
+      @item = Item.find(params[:id])
+   end
    
+   def new
+      @item = Item.new
+   end
+   
+   def create
+      @item = Item.new(item_params)
+      if @item.save
+         redirect_to items_path
+      else
+         render action: :new
+      end
    end
    
    def edit
-      @item = Item.new(params[:item])
+      @item = Item.find(params[:id])
    end
 
    def update
       @item = Item.find(params[:id])
+   end
+   
+   def destroy
+      @item = Item.destroy(params[:id])
+      if @item.destroy
+         redirect_to items_path
+      else
+         render action: :new
+      end
    end
    
    private

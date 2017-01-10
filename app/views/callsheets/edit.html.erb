@@ -1,139 +1,121 @@
 <div class="col-md-7 col-md-offset-3">
-  <div class="well">
-    <legend class="text-center">Callsheet for <%= @callsheet.store_name %> (<%= @callsheet.store_abbrv %> #<%= @callsheet.store_number %>) on <%= @callsheet.visit_date %></legend>
+  <div class="well well-sm show-well">
+    <p class="text-center callsheet-header">Callsheet for <%= @callsheet.store_name %> (<%= @callsheet.store_abbrv %> #<%= @callsheet.store_number %>) on <%= @callsheet.visit_date %></p>
     <p class="text-center">Last Updated at <%= @callsheet.updated_at %></p>
     <div class="form-horizontal">
       <ul class="nav nav-tabs"><br><br>
-          <li class="active"><a data-toggle="tab" href="#tabs-1">Colonial Elegance</a></li>
-          <li><a data-toggle="tab" href="#tabs-2">Genie</a></li>
-          <li><a data-toggle="tab" href="#tabs-3">Honeywell</a></li>
-          <li><a data-toggle="tab" href="#tabs-4">Summit Brands</a></li>
-          <li><a data-toggle="tab" href="#tabs-5">All Stone</a></li>
-          <li><a data-toggle="tab" href="#tabs-6">Tuscany</a></li>
+          <li class="active"><a data-toggle="tab" class="tab-background" href="#tabs-1">Colonial Elegance</a></li>
+          <li><a data-toggle="tab" class="tab-background" href="#tabs-2">Genie</a></li>
+          <li><a data-toggle="tab" class="tab-background" href="#tabs-3">Honeywell</a></li>
+          <li><a data-toggle="tab" class="tab-background" href="#tabs-4">Summit Brands</a></li>
+          <li><a data-toggle="tab" class="tab-background" href="#tabs-5">All Stone</a></li>
+          <li><a data-toggle="tab" class="tab-background" href="#tabs-6">Tuscany</a></li>
       </ul>
       <div class="tab-content">
         <div id="tabs-1" class="tab-pane fade in active">
           <%= render 'colonialelegance' %>
         </div>
-        <div id="tabs-2" class="tab-pane fade in">
+        <div id="tabs-2" class="tab-pane fade">
           <%= render 'genie' %>
         </div>
-        <div id="tabs-3" class="tab-pane fade in">
+        <div id="tabs-3" class="tab-pane fade">
           <%= render 'honeywell' %>
         </div>
-        <div id="tabs-4" class="tab-pane fade in">
+        <div id="tabs-4" class="tab-pane fade">
           <%= render 'summit' %>
         </div>
-        <div id="tabs-5" class="tab-pane fade in">
+        <div id="tabs-5" class="tab-pane fade">
           <%= render 'allstone' %>
         </div>
-        <div id="tabs-6" class="tab-pane fade in">
+        <div id="tabs-6" class="tab-pane fade">
           <%= render 'tuscany' %>
         </div>
       </div>
-<!-- Hidden Form -->
       <%= form_for @callsheet, url: callsheet_path, remote: true, :html => { :multipart => true} do |f| %>
+        <%= f.hidden_field :user_id, :value => @callsheet.user_id %>
+        <%= f.hidden_field :store_id, :id => 'storeSelectHidden' %>
+        <%= f.hidden_field :store_number, :id => 'storeNumberHidden' %>
+        <%= f.hidden_field :store_abbrv, :id => 'storeAbbrvHidden' %>
+        <%= f.hidden_field :store_name, :id => 'storeNameHidden' %>
+        <%= f.hidden_field :visit_date, :id => 'datepickerHidden' %>
+        <%= f.hidden_field :dept_manager_400, :id => 'millwork_managerHidden' %>
+        <%= f.hidden_field :ce_stairdisplays, :id => 'ceSdcHidden' %>
+        <%= f.hidden_field :ce_binboxes, :id => 'ceBinsHidden' %>
+        <%= f.hidden_field :ce_tvdisplay, :id => 'ceTvHidden' %>
+        <%= f.hidden_field :ce_closetdoors, :id => 'ceClosetHidden' %>
+        <%= f.hidden_field :ce_barndoors, :id => 'ceBarndoorHidden' %>
+        <%= f.hidden_field :ce_lit_tearpads, :id => 'ceLit-1Hidden' %>
+        <%= f.hidden_field :ce_lit_closetdoors, :id => 'ceLit-2Hidden' %>
+        <%= f.hidden_field :ce_lit_columns, :id => 'ceLit-3Hidden' %>
+        <%= f.hidden_field :ce_notes, :id => 'ceNotesHidden' %>
+        <%= f.hidden_field :genie_sku_4251691, :id => 'genieSku4251691Hidden' %>
+        <%= f.hidden_field :genie_sku_4251689, :id => 'genieSku4251689Hidden' %>
+        <%= f.hidden_field :genie_sku_4252547, :id => 'genieSku4252547Hidden' %>
+        <%= f.hidden_field :genie_sku_4252548, :id => 'genieSku4252548Hidden' %>
+        <%= f.hidden_field :genie_sku_4254040, :id => 'genieSku4254040Hidden' %>
+        <%= f.hidden_field :genie_sku_4251720, :id => 'genieSku4251720Hidden' %>
+        <%= f.hidden_field :genie_sku_4252388, :id => 'genieSku4252388Hidden' %>
+        <%= f.hidden_field :genie_sku_4252445, :id => 'genieSku4252445Hidden' %>
+        <%= f.hidden_field :genie_sku_4252391, :id => 'genieSku4252391Hidden' %>
+        <%= f.hidden_field :genie_sku_4251685, :id => 'genieSku4251685Hidden' %>
+        <%= f.hidden_field :genie_notes, :id => 'genieNotesHidden' %>
+        <%= f.hidden_field :dept_manager_600, :id => 'plumbing_managerHidden' %>
+        <%= f.hidden_field :hw_sku_3351566, :id => 'hwSku3351566Hidden' %>
+        <%= f.hidden_field :hw_sku_3351579, :id => 'hwSku3351579Hidden' %>
+        <%= f.hidden_field :hw_sku_6360310, :id => 'hwSku6360310Hidden' %>
+        <%= f.hidden_field :hw_sku_6360320, :id => 'hwSku6360320Hidden' %>
+        <%= f.hidden_field :hw_sku_6360325, :id => 'hwSku6360325Hidden' %>
+        <%= f.hidden_field :hw_sku_6360328, :id => 'hwSku6360328Hidden' %>
+        <%= f.hidden_field :hw_sku_3351813, :id => 'hwSku3351813Hidden' %>
+        <%= f.hidden_field :hw_sku_3351830, :id => 'hwSku3351830Hidden' %>
+        <%= f.hidden_field :hw_sku_3351832, :id => 'hwSku3351832Hidden' %>
+        <%= f.hidden_field :hw_sku_3351833, :id => 'hwSku3351833Hidden' %>
+        <%= f.hidden_field :hw_sku_6360205, :id => 'hwSku6360205Hidden' %>
+        <%= f.hidden_field :hw_sku_6360210, :id => 'hwSku6360210Hidden' %>
+        <%= f.hidden_field :hw_sku_6360220, :id => 'hwSku6360220Hidden' %>
+        <%= f.hidden_field :hw_sku_6360150, :id => 'hwSku6360150Hidden' %>
+        <%= f.hidden_field :hw_sku_6360200, :id => 'hwSku6360200Hidden' %>
+        <%= f.hidden_field :hw_sku_3351837, :id => 'hwSku3351837Hidden' %>
+        <%= f.hidden_field :hw_sku_3351779, :id => 'hwSku3351779Hidden' %>
+        <%= f.hidden_field :hw_sku_3351885, :id => 'hwSku3351885Hidden' %>
+        <%= f.hidden_field :hw_sku_3351785, :id => 'hwSku3351785Hidden' %>
+        <%= f.hidden_field :hw_sku_3351798, :id => 'hwSku3351798Hidden' %>
+        <%= f.hidden_field :hw_sku_3351879, :id => 'hwSku3351879Hidden' %>
+        <%= f.hidden_field :hw_sku_3351895, :id => 'hwSku3351895Hidden' %>
+        <%= f.hidden_field :hw_sku_3352001, :id => 'hwSku3352001Hidden' %>
+        <%= f.hidden_field :hw_sku_3352014, :id => 'hwSku3352014Hidden' %>
+        <%= f.hidden_field :hw_sku_3352027, :id => 'hwSku3352027Hidden' %>
+        <%= f.hidden_field :hw_sku_3352030, :id => 'hwSku3352030Hidden' %>
+        <%= f.hidden_field :hw_sku_6399948, :id => 'hwSku6399948Hidden' %>
+        <%= f.hidden_field :hw_sku_6399949, :id => 'hwSku6399949Hidden' %>
+        <%= f.hidden_field :hw_sku_6399978, :id => 'hwSku6399978Hidden' %>
+        <%= f.hidden_field :hw_sku_6399979, :id => 'hwSku6399979Hidden' %>
+        <%= f.hidden_field :hw_lit_thermostat, :id => 'hwLit1Hidden' %>
+        <%= f.hidden_field :hw_lit_airquality, :id => 'hwLit2Hidden' %>
+        <%= f.hidden_field :honeywell_notes, :id => 'hwNotesHidden' %>
+        <%= f.hidden_field :summit_sku_6471315, :id => 'summitSku6471315Hidden' %>
+        <%= f.hidden_field :summit_sku_6471317, :id => 'summitSku6471317Hidden' %>
+        <%= f.hidden_field :summit_sku_6471323, :id => 'summitSku6471323Hidden' %>
+        <%= f.hidden_field :summit_sku_6471320, :id => 'summitSku6471320Hidden' %>
+        <%= f.hidden_field :summit_sku_6471321, :id => 'summitSku6471321Hidden' %>
+        <%= f.hidden_field :summit_sku_6471330, :id => 'summitSku6471330Hidden' %>
+        <%= f.hidden_field :summit_sku_6471333, :id => 'summitSku6471333Hidden' %>
+        <%= f.hidden_field :summit_sku_6471305, :id => 'summitSku6471305Hidden' %>
+        <%= f.hidden_field :summit_sku_6471322, :id => 'summitSku6471322Hidden' %>
+        <%= f.hidden_field :summit_sku_6471302, :id => 'summitSku6471302Hidden' %>
+        <%= f.hidden_field :summit_sku_6473100, :id => 'summitSku6473100Hidden' %>
+        <%= f.hidden_field :summit_sku_6471335, :id => 'summitSku6471335Hidden' %>
+        <%= f.hidden_field :summit_sku_6471325, :id => 'summitSku6471325Hidden' %>
+        <%= f.hidden_field :summit_sku_6473918, :id => 'summitSku6473918Hidden' %>
+        <%= f.hidden_field :summit_sku_6473917, :id => 'summitSku6473917Hidden' %>
+        <%= f.hidden_field :summit_sku_6473900, :id => 'summitSku6473900Hidden' %>
+        <%= f.hidden_field :summit_sku_6473136, :id => 'summitSku6473136Hidden' %>
+        <%= f.hidden_field :summit_notes, :id => 'summitNotesHidden' %>
+        <%= f.hidden_field :allstone_lit, :id => 'allstoneLitHidden' %>
+        <%= f.hidden_field :allstone_notes, :id => 'allstoneNotesHidden' %>
+        <%= f.hidden_field :tuscany_notes, :id => 'tuscanyNotesHidden' %>
+        <%= f.hidden_field :callsheet_complete, :id => 'callsheetComplete' %>
       <div class="form-group">
-        <div class="col-md-8">
-          <table id="ce_table">
-              <tr>
-                <th>ID</th>
-              </tr>
-              <tr>
-                <td></td>
-                <td><%= f.text_field :user_id, :value => @callsheet.user_id %></td>
-                <td><%= f.text_field :store_id, :id => 'storeSelectHidden' %></td>
-                <td><%= f.text_field :store_number, :id => 'storeNumberHidden' %></td>
-                <td><%= f.text_field :store_abbrv, :id => 'storeAbbrvHidden' %></td>
-                <td><%= f.text_field :store_name, :id => 'storeNameHidden' %></td>
-                <td><%= f.text_field :visit_date, :id => 'datepickerHidden' %></td>
-                <td><%= f.text_field :dept_manager_400, :id => 'millwork_managerHidden' %></td>
-                <td><%= f.text_field :ce_stairdisplays, :id => 'ceSdcHidden' %></td>
-                <td><%= f.text_field :ce_binboxes, :id => 'ceBinsHidden' %></td>
-                <td><%= f.text_field :ce_tvdisplay, :id => 'ceTvHidden' %></td>
-                <td><%= f.text_field :ce_closetdoors, :id => 'ceClosetHidden' %></td>
-                <td><%= f.text_field :ce_barndoors, :id => 'ceBarndoorHidden' %></td>
-                <td><%= f.text_field :ce_lit_tearpads, :id => 'ceLit-1Hidden' %></td>
-                <td><%= f.text_field :ce_lit_closetdoors, :id => 'ceLit-2Hidden' %></td>
-                <td><%= f.text_field :ce_lit_columns, :id => 'ceLit-3Hidden' %></td>
-                <td><%= f.text_field :ce_notes, :id => 'ceNotesHidden' %></td>
-                
-                <td><%= f.text_field :genie_sku_4251691, :id => 'genieSku4251691Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4251689, :id => 'genieSku4251689Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4252547, :id => 'genieSku4252547Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4252548, :id => 'genieSku4252548Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4254040, :id => 'genieSku4254040Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4251720, :id => 'genieSku4251720Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4252388, :id => 'genieSku4252388Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4252445, :id => 'genieSku4252445Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4252391, :id => 'genieSku4252391Hidden' %></td>
-                <td><%= f.text_field :genie_sku_4251685, :id => 'genieSku4251685Hidden' %></td>
-                <td><%= f.text_field :genie_notes, :id => 'genieNotesHidden' %></td>
-                
-                <td><%= f.text_field :dept_manager_600, :id => 'plumbing_managerHidden' %></td>
-                <td><%= f.text_field :hw_sku_3351566, :id => 'hwSku3351566Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351579, :id => 'hwSku3351579Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360310, :id => 'hwSku6360310Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360320, :id => 'hwSku6360320Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360325, :id => 'hwSku6360325Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360328, :id => 'hwSku6360328Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351813, :id => 'hwSku3351813Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351830, :id => 'hwSku3351830Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351832, :id => 'hwSku3351832Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351833, :id => 'hwSku3351833Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360205, :id => 'hwSku6360205Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360210, :id => 'hwSku6360210Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360220, :id => 'hwSku6360220Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360150, :id => 'hwSku6360150Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6360200, :id => 'hwSku6360200Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351837, :id => 'hwSku3351837Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351779, :id => 'hwSku3351779Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351885, :id => 'hwSku3351885Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351785, :id => 'hwSku3351785Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351798, :id => 'hwSku3351798Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351879, :id => 'hwSku3351879Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3351895, :id => 'hwSku3351895Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3352001, :id => 'hwSku3352001Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3352014, :id => 'hwSku3352014Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3352027, :id => 'hwSku3352027Hidden' %></td>
-                <td><%= f.text_field :hw_sku_3352030, :id => 'hwSku3352030Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6399948, :id => 'hwSku6399948Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6399949, :id => 'hwSku6399949Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6399978, :id => 'hwSku6399978Hidden' %></td>
-                <td><%= f.text_field :hw_sku_6399979, :id => 'hwSku6399979Hidden' %></td>
-                <td><%= f.text_field :hw_lit_thermostat, :id => 'hwLit1Hidden' %></td>
-                <td><%= f.text_field :hw_lit_airquality, :id => 'hwLit2Hidden' %></td>
-                <td><%= f.text_field :honeywell_notes, :id => 'hwNotesHidden' %></td>
-                
-                <td><%= f.text_field :summit_sku_6471315, :id => 'summitSku6471315Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471317, :id => 'summitSku6471317Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471323, :id => 'summitSku6471323Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471320, :id => 'summitSku6471320Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471321, :id => 'summitSku6471321Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471330, :id => 'summitSku6471330Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471333, :id => 'summitSku6471333Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471305, :id => 'summitSku6471305Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471322, :id => 'summitSku6471322Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471302, :id => 'summitSku6471302Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6473100, :id => 'summitSku6473100Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471335, :id => 'summitSku6471335Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6471325, :id => 'summitSku6471325Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6473918, :id => 'summitSku6473918Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6473917, :id => 'summitSku6473917Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6473900, :id => 'summitSku6473900Hidden' %></td>
-                <td><%= f.text_field :summit_sku_6473136, :id => 'summitSku6473136Hidden' %></td>
-                <td><%= f.text_field :summit_notes, :id => 'summitNotesHidden' %></td>
-                
-                <td><%= f.text_field :allstone_lit, :id => 'allstoneLitHidden' %></td>
-                <td><%= f.text_field :allstone_notes, :id => 'allstoneNotesHidden' %></td>
-                <td><%= f.text_field :tuscany_notes, :id => 'tuscanyNotesHidden' %></td>
-                <td><%= f.text_field :callsheet_complete, :id => 'callsheetComplete' %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-<!-- End Hidden Form -->
         <label class="col-md-6 control-label" for="cs_buttons"><br>Process Data</label>
         <div class="col-md-6">
           <div id="submitConfirm" style="display:none" title="Submit Callsheet?">

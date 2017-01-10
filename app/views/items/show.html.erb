@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="well well-sm show-well">
+      <div class="row">
+        <div class "col-md-1">
+          <%= link_to "Create New Item", new_item_path %>
+        </div>
+        <div class="col-md-12">
+          <p class="store-showheader text-center">View Product</p>
+        </div>
+        <div class="form-horizontal">
+          <div class="col-md-6">
+            <p class="show-vendor-name"><%= @item.vendor_name %></p>
+            <p class="show-item-description"><%= @item.description %></p>
+            <p class="show-active-button"><button class="btn btn-success">Active</button></p>
+            <p class="btn-success">Test</p>
+            <table class="table table-bordered store-showtable">
+              <tr>
+                <td>Model #</td>
+                <td><%= @item.model_number %></td>
+              </tr>
+              <tr>
+                <td>Part #</td>
+                <td><%= @item.part_number %></td>
+              </tr>
+              <tr>
+                <td>UPC #</td>
+                <td><%= @item.upc %></td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td><%= @item.weight %></td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td><%= @item.location %></td>
+              </tr>
+              <tr>
+                <td>Qty On Hand</td>
+                <td><%= @item.count_on_hand %></td>
+              </tr>
+              <tr>
+                <td>Item Creation Date</td>
+                <td><%= @item.created_at %></td>
+              </tr>
+              <tr>
+                <td>Item Last Updated</td>
+                <td><%= @item.updated_at %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <div class="well">
+              <p>Picture goes here</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

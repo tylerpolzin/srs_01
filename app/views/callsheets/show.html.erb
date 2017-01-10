@@ -1,39 +1,215 @@
-<div class="container-fluid">
+<div class="container">
   <div class="col-md-12">
-    <div class="well dashboard-well">
+    <div class="well  well-sm show-well">
       <div class="row">
-        <legend class="text-center">Callsheet Summary for <%= @callsheet.store_name %> (<%= @callsheet.store_abbrv %> #<%= @callsheet.store_number %>) on <%= @callsheet.visit_date %></legend>
-        <div class="col-md-3">
-          <div class="well well-sm">
-            <legend class="text-center">Colonial Elegance</legend>
-            
+        <p class="text-center callsheet-header">Callsheet Summary for <%= @callsheet.store_name %> (<%= @callsheet.store_abbrv %> #<%= @callsheet.store_number %>) on <%= @callsheet.visit_date.strftime("%B %d, %Y") %></p>
+<!-- START Colonial Elegance Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">Colonial Elegance</p>
+            <table width="100%">
+              <tr class="summary-row">
+                <th width="20%">Manager on Duty</th>
+                <th width="35%">Display & POP Condition</th>
+                <th width="20%">Literature Reorders</th>
+                <th width="25%">Additional Notes</th>
+              </tr>
+            </table>
+            <table width="100%">
+              <tr class="summary-data">
+                <td width="20%" id="showCeMgr"></td>
+                <td width="35%"><table id="datatable-cedamages" class="datatable-basic"></table></td>
+                <td width="20%"><table id="datatable-celit" class="datatable-basic"></table></td>
+                <td width="25%" id="showCeNotes"></td>
+              </tr>
+            </table>
+            <%= link_to 'Download', url_for(:format=>"xlsx") %>
+            <button class="btn btn-primary">Export</button>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="well well-sm">
-            <legend class="text-center">Genie</legend>
-            
-            <h3>Out of Stocks</h3>
-              <ul>
-                <li>SKU 1</li>
-                <li>SKU 2</li>
-              </ul>
-            
+<!-- START Genie Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">Genie</p>
+              <table width="100%">
+                <tr class="summary-row">
+                  <th width="27%">Out of Stocks</th>
+                  <th width="30%">700 Stock Status</th>
+                  <th width="43%">Additional Notes</th>
+                </tr>
+              </table>
+              <table width="100%">
+                <tr width="100%" class="summary-data">
+                  <td width="27%"><table id="datatable-genieshow" class="datatable-basic"></table></td>
+                  <td width="30%" id="showGenie700"></td>
+                  <td width="43%" id="showGenieNotes"></td>
+                </tr>
+              </table>
+            <button class="btn btn-primary">Export</button>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="well">
-            <legend class="text-center">Honeywell</legend>
-      </div>
-        </div>
-        <div class="col-md-3">
-          <div class="well">
-            <legend class="text-center">Summit Brands</legend>
+<!-- START Honeywell Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">Honeywell</p>
+              <table width="100%">
+                <tr class="summary-row">
+                  <th width="25%">Manager on Duty</th>
+                  <th width="25%">Out of Stocks</th>
+                  <th width="25%">Literature Reorders</th>
+                  <th width="25%">Additional Notes</th>
+                </tr>
+              </table>
+              <table width="100%">
+                <tr width="100%" class="summary-data">
+                  <td width="25%" id="showHwMgr"></td>
+                  <td width="25%"><table id="datatable-hwshow" class="datatable-basic"></table></td>
+                  <td width="25%"><table id="datatable-hwlit" class="datatable-basic"></table></td>
+                  <td width="25%" id="showHwNotes"></td>
+                </tr>
+              </table>
+            <button class="btn btn-primary">Export</button>
           </div>
         </div>
-        
-        
-        
+<!-- START Summit Brands Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">Summit Brands</p>
+            <table width="100%">
+              <tr class="summary-row">
+                <th width="50%">Out of Stocks</th>
+                <th width="50%">Additional Notes</th>
+              </tr>
+            </table>
+            <table width="100%">
+              <tr width="100%" class="summary-data">
+                <td width="50%"><table id="datatable-summitSkusOos" class="datatable-basic"></table></td>
+                <td width="50%" id="showSummitNotes"></td>
+              </tr>
+            </table>
+            <button class="btn btn-primary">Export</button>
+          </div>
+        </div>
+<!-- START All Stone Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">All Stone</p>
+            <table width="100%">
+              <tr class="summary-row">
+                <th width="50%">Literature Reorder</th>
+                <th width="50%">Additional Notes</th>
+              </tr>
+            </table>
+            <table width="100%">
+              <tr width="100%" class="summary-data">
+                <td width="50%" id="showAsLit"></td>
+                <td width="50%" id="showAllstoneNotes"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+<!-- START Tuscany Table -->
+        <div class="col-md-6">
+          <div class="well well-sm row show-inner-well">
+            <p class="brand-header">Tuscany</p>
+            <table width="100%">
+              <tr class="summary-row">
+                <th width="100%">Notes</th>
+              </tr>
+            </table>
+            <table width="100%">
+              <tr width="100%" class="summary-data">
+                <td width="100%" id="showTuscanyNotes"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+<!-- END Tables -->
+<%= form_for @callsheet, url: callsheet_path, remote: true, :html => { :multipart => true} do |f| %>
+  <%= f.hidden_field :user_id, :value => @callsheet.user_id %>
+  <%= f.hidden_field :store_id, :id => 'storeSelectHidden' %>
+  <%= f.hidden_field :store_number, :id => 'storeNumberHidden' %>
+  <%= f.hidden_field :store_abbrv, :id => 'storeAbbrvHidden' %>
+  <%= f.hidden_field :store_name, :id => 'storeNameHidden' %>
+  <%= f.hidden_field :visit_date, :id => 'datepickerHidden' %>
+  <%= f.hidden_field :dept_manager_400, :id => 'millwork_managerHidden' %>
+  <%= f.hidden_field :ce_stairdisplays, :id => 'ceSdcHidden' %>
+  <%= f.hidden_field :ce_binboxes, :id => 'ceBinsHidden' %>
+  <%= f.hidden_field :ce_tvdisplay, :id => 'ceTvHidden' %>
+  <%= f.hidden_field :ce_closetdoors, :id => 'ceClosetHidden' %>
+  <%= f.hidden_field :ce_barndoors, :id => 'ceBarndoorHidden' %>
+  <%= f.hidden_field :ce_lit_tearpads, :id => 'ceLit-1Hidden' %>
+  <%= f.hidden_field :ce_lit_closetdoors, :id => 'ceLit-2Hidden' %>
+  <%= f.hidden_field :ce_lit_columns, :id => 'ceLit-3Hidden' %>
+  <%= f.hidden_field :ce_notes, :id => 'ceNotesHidden' %>
+  <%= f.hidden_field :genie_sku_4251691, :id => 'genieSku4251691Hidden' %>
+  <%= f.hidden_field :genie_sku_4251689, :id => 'genieSku4251689Hidden' %>
+  <%= f.hidden_field :genie_sku_4252547, :id => 'genieSku4252547Hidden' %>
+  <%= f.hidden_field :genie_sku_4252548, :id => 'genieSku4252548Hidden' %>
+  <%= f.hidden_field :genie_sku_4254040, :id => 'genieSku4254040Hidden' %>
+  <%= f.hidden_field :genie_sku_4251720, :id => 'genieSku4251720Hidden' %>
+  <%= f.hidden_field :genie_sku_4252388, :id => 'genieSku4252388Hidden' %>
+  <%= f.hidden_field :genie_sku_4252445, :id => 'genieSku4252445Hidden' %>
+  <%= f.hidden_field :genie_sku_4252391, :id => 'genieSku4252391Hidden' %>
+  <%= f.hidden_field :genie_sku_4251685, :id => 'genieSku4251685Hidden' %>
+  <%= f.hidden_field :genie_notes, :id => 'genieNotesHidden' %>
+  <%= f.hidden_field :dept_manager_600, :id => 'plumbing_managerHidden' %>
+  <%= f.hidden_field :hw_sku_3351566, :id => 'hwSku3351566Hidden' %>
+  <%= f.hidden_field :hw_sku_3351579, :id => 'hwSku3351579Hidden' %>
+  <%= f.hidden_field :hw_sku_6360310, :id => 'hwSku6360310Hidden' %>
+  <%= f.hidden_field :hw_sku_6360320, :id => 'hwSku6360320Hidden' %>
+  <%= f.hidden_field :hw_sku_6360325, :id => 'hwSku6360325Hidden' %>
+  <%= f.hidden_field :hw_sku_6360328, :id => 'hwSku6360328Hidden' %>
+  <%= f.hidden_field :hw_sku_3351813, :id => 'hwSku3351813Hidden' %>
+  <%= f.hidden_field :hw_sku_3351830, :id => 'hwSku3351830Hidden' %>
+  <%= f.hidden_field :hw_sku_3351832, :id => 'hwSku3351832Hidden' %>
+  <%= f.hidden_field :hw_sku_3351833, :id => 'hwSku3351833Hidden' %>
+  <%= f.hidden_field :hw_sku_6360205, :id => 'hwSku6360205Hidden' %>
+  <%= f.hidden_field :hw_sku_6360210, :id => 'hwSku6360210Hidden' %>
+  <%= f.hidden_field :hw_sku_6360220, :id => 'hwSku6360220Hidden' %>
+  <%= f.hidden_field :hw_sku_6360150, :id => 'hwSku6360150Hidden' %>
+  <%= f.hidden_field :hw_sku_6360200, :id => 'hwSku6360200Hidden' %>
+  <%= f.hidden_field :hw_sku_3351837, :id => 'hwSku3351837Hidden' %>
+  <%= f.hidden_field :hw_sku_3351779, :id => 'hwSku3351779Hidden' %>
+  <%= f.hidden_field :hw_sku_3351885, :id => 'hwSku3351885Hidden' %>
+  <%= f.hidden_field :hw_sku_3351785, :id => 'hwSku3351785Hidden' %>
+  <%= f.hidden_field :hw_sku_3351798, :id => 'hwSku3351798Hidden' %>
+  <%= f.hidden_field :hw_sku_3351879, :id => 'hwSku3351879Hidden' %>
+  <%= f.hidden_field :hw_sku_3351895, :id => 'hwSku3351895Hidden' %>
+  <%= f.hidden_field :hw_sku_3352001, :id => 'hwSku3352001Hidden' %>
+  <%= f.hidden_field :hw_sku_3352014, :id => 'hwSku3352014Hidden' %>
+  <%= f.hidden_field :hw_sku_3352027, :id => 'hwSku3352027Hidden' %>
+  <%= f.hidden_field :hw_sku_3352030, :id => 'hwSku3352030Hidden' %>
+  <%= f.hidden_field :hw_sku_6399948, :id => 'hwSku6399948Hidden' %>
+  <%= f.hidden_field :hw_sku_6399949, :id => 'hwSku6399949Hidden' %>
+  <%= f.hidden_field :hw_sku_6399978, :id => 'hwSku6399978Hidden' %>
+  <%= f.hidden_field :hw_sku_6399979, :id => 'hwSku6399979Hidden' %>
+  <%= f.hidden_field :hw_lit_thermostat, :id => 'hwLit1Hidden' %>
+  <%= f.hidden_field :hw_lit_airquality, :id => 'hwLit2Hidden' %>
+  <%= f.hidden_field :honeywell_notes, :id => 'hwNotesHidden' %>
+  <%= f.hidden_field :summit_sku_6471315, :id => 'summitSku6471315Hidden' %>
+  <%= f.hidden_field :summit_sku_6471317, :id => 'summitSku6471317Hidden' %>
+  <%= f.hidden_field :summit_sku_6471323, :id => 'summitSku6471323Hidden' %>
+  <%= f.hidden_field :summit_sku_6471320, :id => 'summitSku6471320Hidden' %>
+  <%= f.hidden_field :summit_sku_6471321, :id => 'summitSku6471321Hidden' %>
+  <%= f.hidden_field :summit_sku_6471330, :id => 'summitSku6471330Hidden' %>
+  <%= f.hidden_field :summit_sku_6471333, :id => 'summitSku6471333Hidden' %>
+  <%= f.hidden_field :summit_sku_6471305, :id => 'summitSku6471305Hidden' %>
+  <%= f.hidden_field :summit_sku_6471322, :id => 'summitSku6471322Hidden' %>
+  <%= f.hidden_field :summit_sku_6471302, :id => 'summitSku6471302Hidden' %>
+  <%= f.hidden_field :summit_sku_6473100, :id => 'summitSku6473100Hidden' %>
+  <%= f.hidden_field :summit_sku_6471335, :id => 'summitSku6471335Hidden' %>
+  <%= f.hidden_field :summit_sku_6471325, :id => 'summitSku6471325Hidden' %>
+  <%= f.hidden_field :summit_sku_6473918, :id => 'summitSku6473918Hidden' %>
+  <%= f.hidden_field :summit_sku_6473917, :id => 'summitSku6473917Hidden' %>
+  <%= f.hidden_field :summit_sku_6473900, :id => 'summitSku6473900Hidden' %>
+  <%= f.hidden_field :summit_sku_6473136, :id => 'summitSku6473136Hidden' %>
+  <%= f.hidden_field :summit_notes, :id => 'summitNotesHidden' %>
+  <%= f.hidden_field :allstone_lit, :id => 'allstoneLitHidden' %>
+  <%= f.hidden_field :allstone_notes, :id => 'allstoneNotesHidden' %>
+  <%= f.hidden_field :tuscany_notes, :id => 'tuscanyNotesHidden' %>
+  <%= f.hidden_field :callsheet_complete, :id => 'callsheetComplete' %>
+<% end %>
       </div>
     </div>
   </div>

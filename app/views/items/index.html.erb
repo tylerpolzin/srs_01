@@ -1,17 +1,16 @@
-
-<script>
-  $(document).ready(function() {$('#item-table').DataTable( {"order": [[ 0, "desc" ]]} );} );
-</script>
-
-
 <div class="container-fluid">
   <div class="well">
-    <h1 class="text-center">
-      <h1>Inventory</h1>
+    <div class "col-md-1">
+      <%= link_to "Create New Item", new_item_path %>
+    </div>
+    <div class="col-md-11">
+      <p class="store-showheader text-center">Inventory</p>
+    </div>
     <div class="container-fluid">
-      <table id="item-table" class="table table-striped table-bordered table-hover">
-        <thead bgcolor="#969696" style="color: white">
+      <table id="datatable-basic" class="table table-striped table-bordered table-hover">
+        <thead class="selection-header">
           <tr>
+            <th><div style='width: 20px'></div></th>
             <th><div style='width: 60px'>Vendor</div></th>
             <th><div style='width: 70px'>Model #</div></th>
             <th><div style='width: 70px'>Part #</div></th>
@@ -29,6 +28,7 @@
         <tbody>
           <% @items.each do |i| %>
             <tr>
+              <td><%= button_to "View", item_path(id: i.id), method: :get, class: 'btn btn-info' %></td>
               <td><%= i.vendor_name %></td>
               <td><%= i.model_number %></td>
               <td><%= i.part_number %></td>

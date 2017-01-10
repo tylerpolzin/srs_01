@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Colonial") do |sheet|
+    sheet.add_row
+    sheet.add_row ["User ID", "Store Number", "Store Abbrv", "Stair Displays Condition", "Bin Box Condition",
+                   "TV Display Still Installed?", "Closet Door Display Condition", "Barn Door Display Condition",
+                   "Literature Reorder: Tearpads?", "Literature Reorder: Closet Door Brochures?",
+                   "Literature Reorder: Column Tearpads?", "Additional Notes"]
+    @callsheet.where(params[:id]) do |r|
+        sheet.add_row [r.user_id, r.store_number, r.store_abbrv, r.ce_stairdisplays, r.ce_binboxes,
+                       r.ce_tvdisplay, r.ce_closetdoors, r.ce_barndoors, r.ce_lit_tearpads,
+                       r.ce_lit_closetdoors, r.ce_lit_columns, r.ce_notes]
+    end
+end

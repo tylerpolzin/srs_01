@@ -27,6 +27,12 @@ gem 'hirb'
 gem 'devise'
 gem 'rolify'
 gem 'active_shipping'
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
+gem 'acts_as_xlsx',
+  :git => "git://github.com/straydogstudio/acts_as_xlsx.git"
+gem "paperclip", "~> 5.0.0"
 
 
 # Use Redis adapter to run Action Cable in production

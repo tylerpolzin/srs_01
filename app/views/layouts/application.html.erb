@@ -3,10 +3,10 @@
   <head>
     <title>SRS Portal</title>
     <%= csrf_meta_tags %>
-    <meta name="viewport" content="width=device-width initial-scale=1.0;">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100|Quicksand:400,700|Abel" rel="stylesheet">
   </head>
 
   <body>
@@ -47,7 +47,8 @@
                 <li><%= link_to "Create Profile", new_user_profile_path(user_id: current_user.id) if user_signed_in? %></li>
                 <li><%= link_to "Shipment Calculator", new_shipment_path %></li>
                 <li><%= link_to "Literature Requests", about_path %></li>
-                <li><%= link_to "Call Sheets", callsheet_dashboard_path %></li>
+                <li><%= link_to "Item Index", items_path %></li>
+                <li><%= link_to "Callsheets", callsheet_dashboard_path %></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "Store List", stores_path %></li>
                 <li><%= link_to "Territory Map", map_path %></li>

@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Callsheets") do |sheet|
+    sheet.add_row ["ID", "User ID", "Store ID", "Store Number"]
+    @callsheet.each do |r|
+        sheet.add_row [r.id, r.user_id, r.store_id, r.store_number]
+    end
+end

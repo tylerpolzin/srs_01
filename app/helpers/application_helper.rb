@@ -1,5 +1,47 @@
 module ApplicationHelper
   
+  def vendor
+    [
+      ['Tuscany', 'Tuscany'],
+      ['Ray Padula', 'Ray Padula'],
+      ['Colonial Elegance', 'Colonial Elegance'],
+      ['Dr Sharp', 'Dr Sharp'],
+      ['Momentum', 'Momentum'],
+      ['Turn of the Century', 'Turn of the Century'],
+      ['Other...', 'Other', :id => 'vendor_other']
+      
+      
+    ]
+  end
+  
+  def prototype
+    [
+      ['undefined', 'undefined', :proto_id => 'undefined'],
+      ['P5', 'P5', :proto_id => 'P5'],
+      ['Reverse P5', 'R5', :proto_id => 'R5'],
+      ['P5 w/ Mezz', 'P5M', :proto_id => 'P5M'],
+      ['Reverse P5 w/ Mezz', 'R5M', :proto_id => 'R5M'],
+      ['2-Story', 'P2S', :proto_id => 'P2S'],
+      ['Reverse 2-Story', 'R2S', :proto_id => 'R2S'],
+      ['Non-Prototype', 'NP', :proto_id => 'NP']
+    ]
+  end
+  
+  def reps
+    [
+      ['Beth Sheely', 'BETH SHEELY', :user_id => "10"],
+      ['Brian Myers', 'BRIAN MYERS', :user_id => "11"],
+      ['Jeff Voegele', 'JEFF VOEGELE', :user_id => "12"],
+      ['Lindy Barsness', 'LINDY BARSNESS', :user_id => "13"],
+      ['Mark Emerson', 'MARK EMERSON', :user_id => "14"],
+      ['Steve Mampe', 'STEVE MAMPE', :user_id => "15"],
+      ['Tom Brennan', 'TOM BRENNAN', :user_id => "16"],
+      ['Tony Duquette', 'TONY DUQUETTE', :user_id => "18"],
+      ['Tony Scotino', 'TONY SCOTINO', :user_id => "17"],
+      ['Tyler Polzin', 'TYLER POLZIN', :user_id => "1"]
+    ]
+  end
+  
   def us_states
     [
       ['Alabama', 'AL'],
@@ -55,7 +97,7 @@ module ApplicationHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-end
+  end
   
   
 end

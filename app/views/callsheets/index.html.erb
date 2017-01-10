@@ -9,10 +9,11 @@ $(document).ready(function() {
 <div class="container-fluid">
   <div class="col-md-12">
     <div class="row">
-      <div class="well">
-        <h1 class="text-center">Master Callsheet Index</h1>
+      <div class="well well-sm show-well">
+        <p class="text-center callsheet-header">Master Callsheet Index</p>
+        <%= link_to 'Download', url_for(:format=>"xlsx") %>
         <table id="user-list" class="table table-striped table-bordered table-hover">
-          <thead bgcolor="#969696" style="color: white">
+          <thead class="selection-header">
             <tr>
               <th>ID</th>
               <th>UID</th>

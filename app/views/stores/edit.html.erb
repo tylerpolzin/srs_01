@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well well-sm show-well">
+        <%= form_for @stores, url: store_path do |f| %>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <p class="store-showheader text-center">Edit Store Information</p><br>
+              <p class="storename-text text-center"><%= @stores.name %> (<%= @stores.abbrv %> #<%= @stores.yard %>)</p>
+              <div class="address-text text-center">
+                <p><%= @stores.address %></p>
+                <p><%= @stores.city %>, <%= @stores.state %> <%= @stores.zipcode.insert(5, '-') %></p>
+              </div>
+              <table class="table table-bordered store-showtable">
+                <tr>
+                  <td>Prototype</td>
+                  <td><%= f.select :prototype, options_for_select(prototype),{}, :proto_id => @stores.prototype, :id => 'storeProto', class: 'form-control' %></td>
+                </tr>
+                <tr>
+                  <td>Phone</td>
+                  <td><%= f.text_field :phone, class: 'form-control' %></td>
+                </tr>
+                <tr>
+                  <td>Serviced By</td>
+                  <td><%= f.select :service_rep, options_for_select(reps),{}, :id => 'repSelect', class: 'form-control' %></td>
+                </tr>
+                <tr>
+                  <td>Notes</td>
+                  <td><%= f.text_area :notes, class: "form-control" %></td>
+                </tr>
+                <tr>
+                  <td>Info Last Updated</td>
+                  <td><%= @stores.updated_at.strftime("%B %d, %Y") %></td>
+                </tr>
+              </table>
+              <%= f.hidden_field :user_id, :id => 'repSelectHidden' %>
+              <%= f.submit "Update Store Info", class: 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

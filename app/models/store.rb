@@ -1,3 +1,3 @@
 class Store < ActiveRecord::Base
-  belongs_to :callsheet
+  has_many :callsheets
 end
