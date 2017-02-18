@@ -1,0 +1,186 @@
+<div class="container-fluid">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="well well-sm show-well">
+      <div class="row">
+        <div class="col-md-12">
+          <p id="notice"><%= notice %></p>
+          <p class="store-showheader text-center">View Task</p>
+        </div>
+        <div class="form-horizontal">
+          <div class="col-md-6">
+            <p class="show-vendor-name"><%= @task.task_name %></p>
+            <table class="table table-bordered store-showtable">
+              <tr>
+                <td>Task Type</td>
+                <td><%= @task.task_type %></td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td><%= @task.status %></td>
+              </tr>
+              <tr>
+                <td>Initiated By</td>
+                <td><% @initiated_by.each do |inb| %><%= inb.name %><% end %></td>
+              </tr>
+              <tr>
+                <td>Initiated For</td>
+                <td><% @initiated_for.each do |inf| %><%= inf.name %><% end %></td>
+              </tr>
+
+              <% if !@task.email_reference.blank? %>
+              <tr>
+                <td>Email Reference</td>
+                <td><%= @task.email_reference %></td>
+              </tr>
+              <% end %>
+              <tr>
+                <td>Notes</td>
+                <td><%= @task.notes %></td>
+              </tr>
+              <tr>
+                <td>Deadline</td>
+                <td><%= @task.deadline %></td>
+              </tr>
+              <% if !@task.reminding_at.blank? %>
+                <tr>
+                  <td>Reminder</td>
+                  <td><%= @task.reminding_at %></td>
+                </tr>
+              <% end %>
+              <% if !@task.finished_at.blank? %>
+                <tr>
+                  <td>Task Completed At</td>
+                  <td><%= @task.finished_at %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td>Task Created At</td>
+                <td><%= @task.created_at %></td>
+              </tr>
+              <tr>
+                <td>Task Updated At</td>
+                <td><%= @task.updated_at %></td>
+              </tr>
+              <tr>
+                <td>Active?</td>
+                <td><%= @task.active %></td>
+              </tr>
+            </table>
+            <div class="col-md-6"></div>
+            <div class="form-group">  
+              <%= button_to "Edit Task", edit_task_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+        <div class="task-show-warrantyorder">
+          
+        </div>
+        <div class="task-show-storeorder">
+          <div class="form-horizontal">
+            <div class="col-md-6">
+              <p class="show-vendor-name">Products Ordered</p>
+              <table class="table table-bordered store-showtable">
+                <% @item.each do |i| %>
+                <tr>
+                  <td><%= button_to "View", item_path(id: i.id), method: :get, class: 'btn btn-info' %></td>
+                  <td><%= i.vendor_name %> (<%= i.description %>)</td>
+                </tr>
+                <% end %>
+              </table>
+              <p class="show-vendor-name">Shipping Information</p>
+              <% @warrantyorder.each do |w| %>
+              <h1 class="show-vendor-name" id="orderActivity">(<%= w.activity %>)</h1><br/>
+              <table class="table table-bordered store-showtable">
+                <% if !w.po_number.blank? %>
+                  <tr>
+                    <td>PO #</td>
+                    <td><%= w.po_number %></td>
+                  </tr>
+                <% end %>
+                <% @customer.each do |c| %>
+                  <tr>
+                    <td>Shipping Address</td>
+                    <td>
+                      <% if !c.company.blank? %>
+                        <p><%= c.company %></p>
+                      <% end %>
+                      <p><%= c.firstname %> <%= c.lastname %></p>
+                      <p><%= c.address1 %></p>
+                      <% if !c.address2.blank? %>
+                        <p><%= c.address2 %></p>
+                      <% end %>
+                      <% if !c.address3.blank? %>
+                        <p><%= c.address3 %></p>
+                      <% end %>
+                      <p><%= c.city %>, <%= c.state %> <%= c.zipcode %></p>
+                    </td>
+                  </tr>
+                  <% if !c.email.blank? %>
+                  <tr>
+                    <td>Email Address</td>
+                    <td><%= c.email %></td>
+                  </tr>
+                  <% end %>
+                <% end %>
+                <tr>
+                  <td>Shipping Carrier</td>
+                  <td><%= w.shipping_carrier %></td>
+                </tr>
+                <tr>
+                  <td>Tracking #</td>
+                  <td><%= w.tracking_number %></td>
+                </tr>
+                <tr>
+                  <td>Shipping Cost</td>
+                  <td><%= w.shipping_cost %></td>
+                </tr>
+              </table>
+              <% end %>
+              <% @storeordered.each do |i| %>
+                <h1 class="show-vendor-name" id="orderActivity">(<%= i.activity %>)</h1><br/>
+                <table class="table table-bordered store-showtable">
+                  <% if !i.po_number.blank? %>
+                    <tr>
+                      <td>PO #</td>
+                      <td><%= i.po_number %></td>
+                    </tr>
+                  <% end %>
+                  <% @store.each do |s| %>
+                    <tr>
+                      <td>Shipping Address</td>
+                      <td>
+                        <p><%= link_to s.store_identifier, store_path(id: s) %></p>
+                        <p><%= s.address %></p>
+                        <p><%= s.city %>, <%= s.state %> <%= s.zipcode %></p>
+                      </td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td>Shipping Carrier</td>
+                    <td><%= best_in_place i, :shipping_carrier, as: :select, collection: [["UPS", "UPS"], ["FedEx", "FedEx"], ["USPS", "USPS"], ["DHL", "DHL"], ["Other", "Other"]], 
+                      class: 'form-control' %></td>
+                  </tr>
+                  <tr>
+                    <td>Tracking #</td>
+                    <td><%= i.tracking_number %></td>
+                  </tr>
+                  <tr>
+                    <td>Shipping Cost</td>
+                    <td><%= i.shipping_cost %></td>
+                  </tr>
+                </table>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

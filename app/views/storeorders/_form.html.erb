@@ -1,0 +1,88 @@
+<%= form_for(storeorder) do |f| %>
+  <% if storeorder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(storeorder.errors.count, "error") %> prohibited this storeorder from being saved:</h2>
+
+      <ul>
+      <% storeorder.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-horizontal">
+    <div class="form-group">
+        <%= f.fields_for :task, Task.new do |t| %>
+          <%= t.hidden_field :task_name, :id => 'storeOrderTaskAssignTaskNameHidden' %>
+          <%= t.hidden_field :initiated_by, :value => current_user.id, :id => 'storeOrderTaskAssignInitiatedByHidden' %>
+          <%= t.hidden_field :initiated_for, :id => 'storeOrderTaskAssignInitiatedForHidden' %>
+          <%= t.hidden_field :task_type, :value => 'Store Order', :id => 'storeOrderTaskAssignTaskTypeHidden' %>
+          <%= t.hidden_field :email_reference, :id => 'storeOrderTaskAssignEmailRefHidden' %>
+          <%= t.hidden_field :status, :value => 'Pending', :id => 'storeOrderTaskAssignStatusHidden' %>
+          <%= t.hidden_field :autocompleteable, :value => 'false', :id => 'storeOrderTaskAssignAutocompHidden' %>
+          <%= t.hidden_field :deadline, :value => Time.now+7.days, :id => 'storeOrderTaskAssignDeadlineHidden' %>
+        <% end %>
+        <%= f.hidden_field :task_id, :id => 'storeOrderTaskIdHidden' %>
+      <%= f.label :store_id, "Store:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <select id="storeOrderSelect" name="storeOrderSelect" class="form-control">
+          <option value="" name="NIL">Select Location ...</option>
+            <% @stores.each do |s| %>
+            <option value="<%= s.id %>" name="<%= s.name %>"><%= s.name %> (<%= s.abbrv %> #<%= s.yard %>)</option>
+            <% end %>
+        </select>
+        <%= f.hidden_field :store_id, :id => 'storeOrderSelectHidden', class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :item_id, "Product:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <select id="storeOrderItemSelect" name="storeOrderItemSelect" class="form-control">
+          <option value="">Select Item ...</option>
+            <% @items.each do |s| %>
+            <option value="<%= s.id %>"><%= s.vendor_name %> (<%= s.description %>)</option>
+            <% end %>
+        </select>
+        <%= f.hidden_field :item_id, :id => 'storeOrderItemSelectHidden' %>
+      </div>
+    </div>
+        <%= f.hidden_field :active, :id => 'storeOrderActiveHidden', :value => 'true' %>
+    <div class="form-group">
+      <%= f.label :po_number, "PO Number:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= f.text_field :po_number, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :email_reference, "Email Reference:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= f.text_field :email_reference, :id => 'storeOrderEmailRef', class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :notes, "Additional Notes:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= f.text_field :notes, class: 'form-control' %>
+      </div>
+    </div>
+        <%= f.hidden_field :initiated_by, :id => 'storeOrderInitiatedByHidden', :value => current_user.id %>
+    <div class="form-group">
+      <%= f.label :initiated_for, "Initiated For:", class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <select id="storeOrderInitiatedForSelect" name="storeOrderInitiatedForSelect" class="form-control">
+          <option value="">Select Recipient ...</option>
+            <% @profiles.each do |s| %>
+            <option value="<%= s.user_id %>"><%= s.name %></option>
+            <% end %>
+        </select>
+        <%= f.hidden_field :initiated_for, :id => 'storeOrderInitiatedForSelectHidden', class: 'form-control' %>
+      </div>
+    </div>
+        <%= f.hidden_field :activity, :id => 'storeOrderActivityHidden', :value => 'Pending Shipment', class: 'form-control' %>
+
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

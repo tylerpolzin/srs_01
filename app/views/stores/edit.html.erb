@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                   <td>Phone</td>
-                  <td><%= f.text_field :phone, class: 'form-control' %></td>
+                  <td><%= f.text_field :phone, class: 'form-control phone' %></td>
                 </tr>
                 <tr>
                   <td>Serviced By</td>
@@ -34,7 +34,10 @@
                 </tr>
               </table>
               <%= f.hidden_field :user_id, :id => 'repSelectHidden' %>
-              <%= f.submit "Update Store Info", class: 'btn btn-primary' %>
+              <span class="col-md-8"></span>
+              <span class="col-md-4">
+                <%= f.submit "Update Store Info", :id => 'storeUpdate', class: 'btn btn-primary' %>
+              </span>
             </div>
           </div>
         <% end %>

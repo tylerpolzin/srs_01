@@ -1,0 +1,276 @@
+/*global $*/
+document.addEventListener("turbolinks:load", function() {$(function() {
+// START Task Manager JS
+    $(function() {
+      $('form a.add_child').click(function() {
+        var association = $(this).attr('data-association');
+        var template = $('#' + association + '_fields_template').html();
+        var regexp = new RegExp('new_' + association, 'g');
+        var new_id = new Date().getTime();
+        $(this).parent().before(template.replace(regexp, new_id));
+        return false;
+      });
+    });
+    $(function(){
+      $(document).on("click", 'a.remove_child', function() {
+        var hidden_field = $(this).prev('input[type=hidden]')[0];
+        if(hidden_field) {
+          hidden_field.value = '1';
+        }
+        $(this).parents('.fields').hide();
+        return false;
+      });
+    });
+    
+  // START Store Order JS
+    // Activity color change in 'SHOW' view
+    $(function(){
+      if ($('#orderActivity').html() == "(Pending Shipment)") {
+        $('#orderActivity').addClass('orderActivityColorPending');
+      }
+      if ($('#orderActivity').html() == "(Shipped!)") {
+        $('#orderActivity').addClass('orderActivityColorShipped');
+      }
+    });
+  
+  
+    $(function(){
+      $('#newTaskCustomerSelect').change(function(){
+        if ($(this).find('option:selected').text() == "Create New...") {
+          $('.newCustomerForm').show();
+          $('#newTaskCustomerSelect option:selected').attr('value', $('#customerIdDiscovery').attr('value'));
+        }
+        else {
+          $('.newCustomerForm').hide();
+        }
+      });
+    });
+    // Form highlighting code below
+    // $(document).ready(function () {
+    //   var isValid = true;
+    //   $('input[type="text"]').addClass('empty');
+    //   $('input[type="text"]').change(function () {
+    //     if ($.trim($(this).val()) == '') {
+    //       isValid = false;
+    //       $(this).addClass('empty');
+    //     } else {
+    //       $(this).removeClass('empty');
+    //     }
+    //   });
+    // });
+//-----------------------------------------------------------------------------------
+//          START New Task JS                                                       |
+//-----------------------------------------------------------------------------------
+    $('#newTaskSubmit').click(function(){
+      if ($('#newTaskTaskTypeSelect option:selected').html() == "Store Order") {
+        $('#storeOrderActivityHidden').val("Pending Shipment");
+        $('#customerOrderActivityHidden').val("");
+        $('#newTaskSubmitButton').submit();
+      }
+      if ($('#newTaskTaskTypeSelect option:selected').html() == "Customer Order") {
+        $('#customerOrderActivityHidden').val("Pending Shipment");
+        $('#storeOrderActivityHidden').val("");
+        $('#newTaskSubmitButton').submit();
+      }
+      else {
+        $('#newTaskSubmitButton').submit();
+      }
+    });
+    
+
+    
+    $(function(){
+      $('#newTaskTaskTypeSelect').change(function(){
+          if ($(this).val() == "Store Order") {
+            $('.warrantyOrderForm').hide();
+            $('.storeOrderForm').show();
+            $('.productsForOrderForm').show();
+            $('select[id^="task_task_products_attributes_"]').val("");
+          }
+          if ($(this).val() == "Customer Order") {
+            $('.storeOrderForm').hide();
+            $('.warrantyOrderForm').show();
+            $('.productsForOrderForm').show();
+            $('#taskAssignTaskName').val("");
+            $('#newTaskStoreSelect').val("");
+            $('#newTaskStorePOSelect').val("");
+            $('select[id^="task_task_products_attributes_"]').val("");
+          }
+          if ($(this).val() == "SRS Task") {
+            $('.storeOrderForm').hide();
+            $('.warrantyOrderForm').hide();
+            $('.productsForOrderForm').hide();
+          }
+      });
+    });
+    $('#newTaskStoreSelect').change(function(){
+      $('#taskAssignTaskName').val("Store Order for " + $('#newTaskStoreSelect option:selected').text());
+    });
+    $('#newTaskCustomerSelect').change(function(){
+      $('#taskAssignTaskName').val("Customer Order for " + $('#newTaskCustomerSelect option:selected').text());
+    });
+//-----------------------------------------------------------------------------------
+//          START Task Dashboard JS                                                 |
+//-----------------------------------------------------------------------------------
+
+  function format (products, address, uploads, notes, initiator, date) {
+    return ''+
+   '<div class="glider">'+
+   '  <table class="task-dashboard-expando">'+
+   '    <tr class="task-dashboard-tr">'+
+   '      <td>Products Ordered</td>'+
+   '      <td>Shipping Address</td>'+
+   '      <td>Attached Files</td>'+
+   '      <td>Notes</td>'+
+   '      <td></td>'+
+   '    </tr>'+
+   '    <tr>'+
+   '      <td class="task-dashboard-td">'+products+'</td>'+
+   '      <td class="task-dashboard-td address-margin">'+address+'</td>'+
+   '      <td class="task-dashboard-td">'+uploads+'</td>'+
+   '      <td class="task-dashboard-td">'+notes+'</td>'+
+   '      <td class="task-dashboard-td notes-margin"><p>Task created by '+initiator+'</p><p>on '+date+'</p></td>'+
+   '    </tr>'+
+   '  </table>'+
+   '</div>';
+  }
+   
+  $(document).ready(function() {
+    var table = $('#coTable').DataTable({
+      "scrollX": true,
+      "scrollY": true,
+      "dom": '<"task-dashboard-toolbar"><"col-md-12 glider-table"t><"col-md-12"ip>',
+      "aLengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+      "pageLength": 10,
+      "bJQueryUI": true,
+      "columnDefs": [
+        {
+        "targets": [2, 11],
+        "visible": false,
+        },
+        {
+        "targets": [0, 4],
+        "orderable": false
+        }
+      ],
+      "order": [[2, 'asc']],
+      "oLanguage": {"sZeroRecords": "No orders to display for this view"}
+      });
+      table.column(4).search('"Archive"').draw();
+      table.page.len(-1).draw();
+    $("div.task-dashboard-toolbar").html(''+
+      '<ul class="nav nav-tabs">'+
+      ' <li class="active"><a data-toggle="tab" class="allorderButton tab-background">All Orders</a></li>'+
+      ' <li><a data-toggle="tab" class="customerorderButton tab-background">Customer Orders</a></li>'+
+      ' <li><a data-toggle="tab" class="storeorderButton tab-background">Store Orders</a></li>'+
+      ' <li><a data-toggle="tab" class="archivedordersButton tab-background">Archive</a></li>'+
+      ' <li><div class="dataTables_filter"><input class="form-control" id="dataTableSearch" placeholder="Search Table..."></div>'+
+      ' <li>'+
+      '    <div class="dataTables_length">'+
+      '     <select '+
+      '       class="form-control tag-tooltip"'+
+      '       data-toggle="tooltip"'+
+      '       data-placement="top"'+
+      '       data-container="body"'+
+      '       data-original-title="Number of records to show"'+
+      '       id="dataTableLength">'+
+      '       <option value="5">5</option>'+
+      '       <option value="25">25</option>'+
+      '       <option value="50">50</option>'+
+      '       <option value="100">100</option>'+
+      '       <option selected="selected" value="-1">All</option>'+
+      '     </select>'+
+      '   </div>'+
+      ' </li>'+
+      '</ul>'+
+      '');
+    $('#dataTableSearch').keyup(function(){
+          table.search($(this).val()).draw() ;
+    });
+    
+    $('#dataTableLength').on("change", function(){
+          table.page.len($(this).find("option:selected").attr("value")).draw() ;
+    });
+    // $('#detailsDblClick').on('dblclick', function(){
+    //   var tr = $('#coTable > tbody > tr');
+    //   var td = $(tr).find('td');
+    //   var row = table.row(tr);
+    //   $.each(tr, function() {
+    //     $('div.glider', row.child()).slideUp(function() {
+    //       row.child.hide();
+    //       tr.removeClass('shown');
+    //       td.tooltip('enable');
+    //     });
+    //   });
+
+    // });
+
+    
+    $('.customerorderButton').on('click', function() {
+      $('div.glider-table').slideUp(300);
+      setTimeout(function() {
+        table.column(4).search('"Archive"').draw();
+        table.column(2).search('"Customer Order"').draw();
+      }, 280);
+      $('div.glider-table').slideDown(300);
+    });
+    $('.storeorderButton').on('click', function() {
+      $('div.glider-table').slideUp(300);
+      setTimeout(function() {
+      table.column(4).search('"Archive"').draw();
+      table.column(2).search('"Store Order"').draw();
+      }, 280);
+      $('div.glider-table').slideDown(300);
+    });
+    $('.allorderButton').on('click', function() {
+      $('div.glider-table').slideUp(300);
+      setTimeout(function() {
+      table.column(2).search("").draw();
+      table.column(4).search('"Archive"').draw();
+      }, 280);
+      $('div.glider-table').slideDown(300);
+    });
+    $('.archivedordersButton').on('click', function() {
+      $('div.glider-table').slideUp(300);
+      setTimeout(function() {
+      table.column(2).search("").draw();
+      table.column(4).search('"Restore"').draw();
+      }, 280);
+      $('div.glider-table').slideDown(300);
+    });
+    
+    // Reloads the table cache for searching after "active?" update
+    $('#coTable').on('click', '#activeButton', function() {
+      var td = $(this).closest('td');
+      table.cell(td).invalidate().draw();
+    });
+    
+    $('#coTable').on('click', 'td.details-control', function() {
+      var tr = $(this).closest('tr');
+      var td = $(tr).find('td:first-child');
+      var row = table.row(tr);
+      if (row.child.isShown()) {
+        $('div.glider', row.child()).slideUp(function() {
+          row.child.hide();
+          tr.removeClass('shown');
+          td.tooltip('enable');
+        });
+      }
+      else {
+        row.child(format(tr.data('child-products'), tr.data('child-address'), tr.data('child-uploads'), tr.data('child-notes'), tr.data('child-initiator'), tr.data('child-date')), 'no-padding').show();
+        tr.addClass('shown');
+        td.tooltip('disable');
+        $('div.glider', row.child()).slideDown();
+      }
+    });
+  });
+    $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd' });
+  // Datepicker Dropdown
+
+//-----------------------------------------------------------------------------------
+//          START Task Index JS                                                     |
+//-----------------------------------------------------------------------------------
+
+
+
+});}); // turbolinks and document-ready Endpoint

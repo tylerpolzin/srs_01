@@ -1,0 +1,82 @@
+// Place all the styles related to the tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+  .dataTables_length {
+    float: right;
+  }
+  
+  ul.pagination {
+    margin: 0;
+  }
+  
+  .task-dashboard-header {
+    cursor: context-menu;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1em;
+    color: #ffffff;
+    width: 100%;
+    background: linear-gradient(to bottom, #337ab7 80%, rgba(255, 255, 255, 0) 100%)
+  }
+  .task-dashboard-header th {
+    padding-left: 16px;
+    text-align: center;
+  }
+  
+  .task-dashboard-toolbar {
+    float: left;
+    margin-right: 4px;
+    margin-bottom: -6px;
+    padding-left: 20px;
+    display: inline;
+  }
+
+  .task-dashboard-table {
+    font-family: 'Abel', sans-serif;
+    font-weight: bold;
+    font-size: .9em;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .task-dashboard-expando {
+    width: 60%;
+    padding-top: 0;
+    padding-bottom: 5px;
+    border-top: 0;
+    border-right: 2px solid orange;
+    border-left: 2px solid orange;
+    border-bottom: 2px solid orange !important;
+    margin-bottom: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3)
+  }
+  .task-dashboard-td {
+    vertical-align: top;
+    text-align: left;
+    padding-top: 1px;
+    background-color: #d1dbe4;
+  }
+  .task-dashboard-tr td {
+    text-align: left;
+    background-color: #646e78;
+    color: #e1ffff;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3)
+  }
+
+
+  // Removing bottom margin in address field on tasks dashboard
+  .address-margin p {
+    margin-bottom: 0;
+    text-decoration: underline;
+    vertical-align: top;
+    text-align: left;
+  }
+  .notes-margin p {
+    margin-bottom: 0;
+    vertical-align: top;
+    text-align: left;
+  }
+  #datepicker {
+    position: relative;
+    z-index: 999098 !important;
+  }

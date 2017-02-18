@@ -1,51 +1,58 @@
 <div class="container-fluid">
   <div class="well well-sm show-well">
-    <p class="store-showheader text-center">Master Menards Store List</p><br>
+    <p class="store-showheader text-center">Menards Store List</p><br>
     <div class="container-fluid">
       <table id="datatable-basic" class="table table-striped table-bordered table-hover">
         <thead class="selection-header">
           <tr>
-            <th><div style='width: 20px'></div></th>
             <th><div style='width: 50px'>Yard</div></th>
             <th><div style='width: 50px'>Abbrv</div></th>
             <th><div style='width: 70px'>Name</div></th>
-            <th><div style='width: 50px'>Proto</div></th>
-            <th><div style='width: 190px'>Address</div></th>
-            <th><div style='width: 80px'>City</div></th>
-            <th><div style='width: 45px'>State</div></th>
-            <th><div style='width: 50px'>Zip</div></th>
-            <th><div style='width: 50px'>Phone</div></th>
+            <th><div style='width: 150px'>Proto</div></th>
+            <th><div style='width: 230px'>Address</div></th>
+            <th><div style='width: 100px'>Phone</div></th>
             <th><div style='width: 110px'>Service Rep</div></th>
-            <th><div style='width: 75px'>Last Visit</div></th>
+            <th><div style='width: 140px'>Last Visit</div></th>
             <th><div style='width: 350px'>Notes</div></th>
-            <th><div style='width: 170px'>Entry Creation Date</div></th>
-            <th><div style='width: 170px'>Entry Last Update</div></th>
+            <% if current_user.has_role? (:tyler) %>
+            <th><div style='width: 165px'>Entry Creation Date</div></th>
+            <th><div style='width: 160px'>Entry Last Update</div></th>
             <th><div style='width: 50px'>Latitude</div></th>
             <th><div style='width: 50px'>Longitude</div></th>
             <th><div style='width: 40px'>UID</div></th>
+            <% else %><% end %>
           </tr>
         </thead>
         <tbody>
-          <% @stores.each do |store| %>
+          <% @stores.each do |s| %>
             <tr>
-              <td><%= button_to "View", store_path(id: store.id), method: :get, class: 'btn btn-info' %></td>
-              <td><%= store.yard %></td>
-              <td><%= store.abbrv %></td>
-              <td><%= store.name %></td>
-              <td><%= store.prototype %></td>
-              <td><%= store.address %></td>
-              <td><%= store.city %></td>
-              <td><%= store.state %></td>
-              <td><%= store.zipcode %></td>
-              <td><%= store.phone %></td>
-              <td><%= store.service_rep %></td>
-              <td><%= store.lastvisit %></td>
-              <td><%= store.notes %></td>
-              <td><%= store.created_at %></td>
-              <td><%= store.updated_at %></td>
-              <td><%= store.lat %></td>
-              <td><%= store.long %></td>
-              <td><%= store.user_id %></td>
+              <td><%= link_to s.yard, store_path(id: s.id), method: :get, title: 'Click for Store Info', 'data-toggle' => 'tooltip', 'data-placement' => 'right', 'data-container' => 'body', class: 'btn btn-link tag-tooltip' %></td>
+              <td><%= s.abbrv %></td>
+              <td><%= s.name %></td>
+              <td><%= best_in_place s, :prototype, :as => :select, collection: [["undefined", "undefined"], ["P5", "P5"], ["R5", "Reverse P5"], ["P5M", "P5 w/ Mezz"], ["R5M", "Reverse P5 w/ Mezz"], ["P2S", "2-Story"], ["R2S", "Reverse 2-Story"], ["NP", "Non-Prototype"]], class: 'btn btn-default', inner_class: 'input-small' %></td>
+              <td>
+                <p><%= s.address %></p>
+                <% if s.zipcode.length > 5 %>
+                  <p><%= s.store_csz %></p>
+                <% else %>
+                  <p><%= s.store_csy %></p>
+                <% end %>
+              </td>
+              <td><%= s.phone_h %></td>
+              <td><%= s.service_rep %></td>
+              <% if !s.lastvisit.blank? %>
+                <td><%= s.lastvisit %></td>
+              <% else %>
+                <td>None logged yet</td>
+              <% end %>
+              <td><%= best_in_place s, :notes, :as => :textarea, class: 'btn btn-default', inner_class: 'input-small' %></td>
+              <% if current_user.has_role? (:tyler) %>
+              <td><%= s.created_at.strftime("%B %d, %Y") %></td>
+              <td><%= s.updated_at.strftime("%B %d, %Y") %></td>
+              <td><%= s.lat %></td>
+              <td><%= s.long %></td>
+              <td><%= s.user_id %></td>
+              <% else %><% end %>
             </tr>
           <% end %>
         </tbody>

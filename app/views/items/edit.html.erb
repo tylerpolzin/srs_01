@@ -3,7 +3,7 @@
     <div class="col-md-6 col-md-offset-3">
       <div class="well well-sm show-well">
         <h1 class="text-center callsheet-header">Edit Item</h1>
-        <%= form_for @item, url: edit_item_path, :html => { :multipart => true } do |f| %>
+        <%= form_for @item, url: item_path, method: :patch, :html => { :multipart => true } do |f| %>
           <div class="form-horizontal">
             <div class="form-group">
               <%= f.label :vendor_name, "Vendor Name:", class: 'col-sm-3 control-label' %>
@@ -35,22 +35,46 @@
                 <%= f.text_field :description, class: 'form-control' %>
               </div>
             </div>
+            <% if @item.avatar? %>
             <div class="form-group">
-              <%= f.label :picture, "Picture:", class: 'col-sm-3 control-label' %>
+              <%= f.label :delete_avatar, "Picture:", class: 'col-sm-3 control-label' %>
               <div class="col-sm-9">
-                <%= f.text_field :picture, class: 'form-control' %>
+                <span>
+                  <%= image_tag @item.avatar.url(:thumb) %>
+                </span>
+                <span>
+                    <%= f.check_box :remove_avatar, :checked => false, class: 'switch' %> Remove Image
+                </span>
               </div>
             </div>
+            <% else %>
+            <div class="form-group">
+              <%= f.label :avatar, "Picture:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.file_field :avatar, class: 'form-control' %>
+              </div>
+            </div>
+            <% end %>
             <div class="form-group">
               <%= f.label :weight, "Weight:", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.text_field :weight, class: 'form-control' %>
-              </div>
+              <span class="col-sm-2">
+                <input class="form-control" value="0" id="weightPounds"></input>
+              </span>
+              <span class="col-sm-1">LBS.</span>
+              <span class="col-sm-2">
+                <input class="form-control" value="0" id="weightOunces"></input>
+              </span>
+              <span class="col-sm-1">OZ.</span>  
+                <%= f.hidden_field :weight, :value => "0 lbs. 0 oz.", :id => "joinedWeight" %>
             </div>
             <div class="form-group">
               <%= f.label :location, "Location:", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.text_field :location, class: 'form-control' %>
+              <div class="col-sm-3">
+                <%= f.text_field :location, class: 'col-sm-3 form-control' %>
+              </div>
+              <%= f.label :store_orderable, "Store Orderable?", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <%= f.select :store_orderable, options_for_select([['',''],['True', 'true'],['False','false']]),{}, class: 'col-sm-3 form-control' %>
               </div>
             </div>
             <div class="form-group">
@@ -60,7 +84,7 @@
               </div>
               <%= f.label :active, "Active?", class: 'col-sm-3 control-label' %>
               <div class="col-sm-3">
-                <%= f.select :active, options_for_select(['true', 'false']),{}, class: 'col-sm-3 form-control' %>
+                <%= f.select :active, options_for_select([['True', 'true'],['False','false']]),{}, class: 'col-sm-3 form-control' %>
               </div>
             </div>
             <div class="form-group">
@@ -82,7 +106,7 @@
               </div>
               <div class="col-sm-3">
                 <%= form_for @item, url: item_path, method: :delete, :html => { :multipart => true } do |f| %>
-                <%= f.submit "Delete Item", class: 'btn btn-danger' %>
+                <%= f.submit "Delete Item", data: {confirm: 'Are you sure you want to delete this item?' }, class: 'btn btn-danger' %>
                 <% end %>
               </div>
             </div>

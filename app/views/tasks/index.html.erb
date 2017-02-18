@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="well well-sm show-well">
+    <p id="notice"><%= notice %></p>
+    
+    <h1>Tasks</h1>
+    
+    <table id="tasks-table", data-source="<%= tasks_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Task Name</th>
+          <th>Task Type</th>
+          <th>Task Status</th>
+          <th>Task Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
+    <%= link_to 'New Task', new_task_path %>
+  </div>
+</div>

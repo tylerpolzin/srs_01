@@ -1,0 +1,17 @@
+<%= form_for(warrantyorder) do |f| %>
+  <% if warrantyorder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(warrantyorder.errors.count, "error") %> prohibited this warrantyorder from being saved:</h2>
+
+      <ul>
+      <% warrantyorder.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

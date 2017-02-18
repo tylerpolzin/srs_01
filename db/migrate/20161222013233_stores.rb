@@ -9,8 +9,8 @@ class Stores < ActiveRecord::Migration[5.0]
       t.string :city
       t.string :state
       t.string :zipcode
-      t.string :lat
-      t.string :long
+      t.float :lat
+      t.float :long
       t.string :phone
       t.string :service_rep
       t.integer :user_id

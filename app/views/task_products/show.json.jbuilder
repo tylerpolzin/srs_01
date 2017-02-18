@@ -1,0 +1,1 @@
+json.partial! "task_products/task_product", task_product: @task_product

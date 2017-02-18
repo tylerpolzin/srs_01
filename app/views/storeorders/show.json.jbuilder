@@ -1,0 +1,1 @@
+json.partial! "storeorders/storeorder", storeorder: @storeorder

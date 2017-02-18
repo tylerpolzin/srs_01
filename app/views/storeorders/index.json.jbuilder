@@ -1,0 +1,1 @@
+json.array! @storeorders, partial: 'storeorders/storeorder', as: :storeorder

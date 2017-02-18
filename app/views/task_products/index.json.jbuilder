@@ -1,0 +1,1 @@
+json.array! @task_products, partial: 'task_products/task_product', as: :task_product

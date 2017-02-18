@@ -4,10 +4,11 @@ class Tasks < ActiveRecord::Migration[5.0]
       t.string :task_name
       t.string :initiated_by
       t.string :initiated_for
+      t.boolean :active
       t.string :task_type
       t.text :email_reference
       t.string :status
-      t.boolean :autocompleteable
+      t.text :notes
       t.timestamp :deadline
       t.timestamp :reminding_at
       t.timestamp :finished_at

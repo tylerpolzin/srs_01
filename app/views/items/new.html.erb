@@ -1,14 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <div class="well">
+      <div class="well well-sm show-well">
         <h1 class="text-center">Create New Item</h1>
         <%= form_for @item, url: items_path, method: :post, :html => { :multipart => true } do |f| %>
           <div class="form-horizontal">
             <div class="form-group">
               <%= f.label :vendor_name, "Vendor Name:", class: 'col-sm-3 control-label' %>
               <div class="col-sm-9">
-                <%= f.select :vendor_name, options_for_select(vendor),{}, class: 'form-control' %>
+                <span class="form-inline">
+                  <select id="vendorSelect" class="form-control"></select>
+                  <%= f.text_field :vendor_name, id: 'vendorHidden', class: 'hidden form-control' %>
+                </span>
               </div>
             </div>
             <div class="form-group">
@@ -36,38 +39,46 @@
               </div>
             </div>
             <div class="form-group">
-              <%= f.label :picture, "Picture:", class: 'col-sm-3 control-label' %>
+              <%= f.label :avatar, "Picture:", class: 'col-sm-3 control-label' %>
               <div class="col-sm-9">
-                <%= f.text_field :picture, class: 'form-control' %>
+                <%= f.file_field :avatar, class: 'form-control' %>
               </div>
             </div>
             <div class="form-group">
               <%= f.label :weight, "Weight:", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.text_field :weight, class: 'form-control' %>
-              </div>
+              <span class="col-sm-2">
+                <input class="form-control" value="0" id="weightPounds"></input>
+              </span>
+              <span class="col-sm-1">LBS.</span>
+              <span class="col-sm-2">
+                <input class="form-control" value="0" id="weightOunces"></input>
+              </span>
+              <span class="col-sm-1">OZ.</span>  
+                <%= f.hidden_field :weight, :value => "0 lbs. 0 oz.", :id => "joinedWeight" %>
             </div>
             <div class="form-group">
               <%= f.label :location, "Location:", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.text_field :location, class: 'form-control' %>
+              <div class="col-sm-3">
+                <%= f.text_field :location, class: 'col-sm-3 form-control' %>
+              </div>
+              <%= f.label :store_orderable, "Store Orderable?", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <%= f.select :store_orderable, options_for_select([['True', 'true'],['False','false']]),{}, class: 'col-sm-3 form-control' %>
               </div>
             </div>
             <div class="form-group">
               <%= f.label :count_on_hand, "Qty On Hand:", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.text_field :count_on_hand, class: 'form-control' %>
+              <div class="col-sm-3">
+                <%= f.text_field :count_on_hand, class: 'col-sm-3 form-control' %>
               </div>
-            </div>
-            <div class="form-group">
               <%= f.label :active, "Active?", class: 'col-sm-3 control-label' %>
-              <div class="col-sm-9">
-                <%= f.select :active, options_for_select([['True', 'true'],['False','false']]),{}, class: 'form-control' %>
+              <div class="col-sm-3">
+                <%= f.select :active, options_for_select([['True', 'true'],['False','false']]),{}, class: 'col-sm-3 form-control' %>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <%= f.submit "Update Profile", class: 'btn btn-primary' %>
+                <%= f.submit "Create Item", class: 'btn btn-primary' %>
               </div>
             </div>
           </div>

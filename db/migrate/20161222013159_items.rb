@@ -4,9 +4,9 @@ class Items < ActiveRecord::Migration[5.0]
       t.string :vendor_name
       t.string :model_number
       t.string :part_number
+      t.boolean :store_orderable
       t.string :upc
       t.text :description
-      t.string :picture
       t.string :weight
       t.string :location
       t.integer :count_on_hand

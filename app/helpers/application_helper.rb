@@ -1,5 +1,4 @@
 module ApplicationHelper
-  
   def vendor
     [
       ['Tuscany', 'Tuscany'],
@@ -8,9 +7,7 @@ module ApplicationHelper
       ['Dr Sharp', 'Dr Sharp'],
       ['Momentum', 'Momentum'],
       ['Turn of the Century', 'Turn of the Century'],
-      ['Other...', 'Other', :id => 'vendor_other']
-      
-      
+      ['Other...', 'Other']
     ]
   end
   

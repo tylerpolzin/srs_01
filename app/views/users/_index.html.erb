@@ -1,25 +1,27 @@
 <div class="container-fluid">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-8 col-md-offset-2">
     <div class="row">
       <div class="well">
-        <h1>User List</h1>
-        <table id="datatable-standard" class="table table-striped table-bordered table-hover">
-          <thead bgcolor="#969696" style="color: white">
+    <p class="store-showheader text-center">User List</p><br>
+        <table id="datatable-basic" class="table table-striped table-bordered table-hover">
+          <thead class="selection-header">
             <tr>
               <th>UID</th>
               <th>Email (Login)</th>
+              <th>Map Marker Info</th>
               <th>User Created At</th>
               <th>User Last Update</th>
             </tr>
           </thead>
           <tbody>
             <% @users.each do |u| %>
-            <tr>
-              <td><%= u.id %></td>
-              <td><%= u.email %></td>
-              <td><div style='width: 170px'><%= u.created_at %></div></td>
-              <td><div style='width: 170px'><%= u.updated_at %></div></td>
-            </tr>
+              <tr>
+                <td><%= u.id %></td>
+                <td><%= u.email %></td>
+                <td><%= best_in_place u, :marker, class: 'form-control' %></td>
+                <td><div style='width: 170px'><%= u.created_at %></div></td>
+                <td><div style='width: 170px'><%= u.updated_at %></div></td>
+              </tr>
             <% end %>
           </tbody>
         </table>

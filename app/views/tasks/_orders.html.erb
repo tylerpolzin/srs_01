@@ -1,0 +1,249 @@
+<table id="coTable" class="display" style="width: 100%;">
+  <thead>
+    <tr>
+      <th id="detailsDblClick"><div style="width: 10px"></div></th>
+      <th><div style="width: 200px">Description</div></th>
+      <th></th>
+      <th><div style="width: 150px">Task Status</div></th>
+      <th><div style="width: 100px">Task Complete?</div></th>
+      <th><div style="width: 150px">Shipping Activity</div></th>
+      <th><div style="width: 130px">Shipping Carrier</div></th>
+      <th><div style="width: 100px">Tracking Number</div></th>
+      <th><div style="width: 90px">Shipping Cost</div></th>
+      <th><div style="width: 160px">PO #</div></th>
+      <th><div style="width: 150px">Due Date</div></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody class="task-dashboard-table">
+    <% @tasks.each do |task| %>
+    
+    
+    
+    <tr 
+      data-child-products="<% task.task_products.each do |tp| %>
+                             <% if !tp.item.blank? %>
+                               &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;/items/<%= tp.item.id %>&quot;&gt;<%= tp.item.item_select %>&lt;/a&gt;&lt;/p&gt;
+                             <% end %>
+                           <% end %>"
+      data-child-address="<%= render "shipping_address", :task => task %>" 
+      data-child-uploads="<% if !task.uploads.blank? %>
+                            <% task.uploads.each do |upload| %>
+                              <% if upload.upload.exists? %>
+                                &lt;p&gt;&lt;a target=&quot;_blank&quot; href=&quot;<%= upload.upload.url %>&quot;&gt;<%= upload.upload_file_name %>&lt;/a&gt;&lt;/p&gt;
+                              <% end %>
+                            <% end %>
+                          <% else %>
+                            No Files Attached
+                          <% end %>"
+      data-child-notes="&lt;span 
+                        data-bip-type=&quot;textarea&quot; 
+                        data-bip-attribute=&quot;notes&quot; 
+                        data-bip-inner-class=&quot;form-control&quot; 
+                        data-bip-object=&quot;task&quot; 
+                        data-bip-original-content=&quot;<%= task.notes %>&quot; 
+                        data-bip-skip-blur=&quot;false&quot; 
+                        data-bip-placeholder=&quot;Click here to add notes...&quot; 
+                        data-bip-url=&quot;/tasks/<%= task.id %>&quot; 
+                        data-bip-value=&quot;<%= task.notes %>&quot; 
+                        class=&quot;best_in_place textarea&quot; 
+                        id=&quot;best_in_place_task_<%= task.id %>_notes&quot;&gt;<%= task.notes %>&lt;/span&gt;"
+      data-child-initiator="<%= task.user.profile.name %>"
+      data-child-date="<%= task.created_at.strftime('%B %d, %Y') %>">
+      <td 
+        class="details-control tag-tooltip"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        data-container="body"
+        data-original-title="Product & Shipping Information">
+      </td>
+      <td><%= link_to task.task_name, task_path(id: task.id), target: "_blank" %></td>
+      <td><%= task.task_type %></td>
+      <% if task.status == "Accepted" %>
+        <td><%= task.status %></td>
+      <% else %>
+        <td><%= best_in_place task, :status,
+                as: :select,
+                collection: [["Pending Acceptance", "Pending Acceptance"], ["Accepted", "Accepted"]],
+                class: 'btn btn-default',
+                inner_class: 'input-small' %>
+        </td>
+      <% end %>
+      <td><%= best_in_place task, :active, 
+              as: :checkbox, 
+              :id => 'activeButton', 
+              class: 'btn btn-default', 
+              inner_class: 'input-small', 
+              collection: %w[Restore Archive] %> <!-- Restore = 'false', Archive = 'true' -->
+      </td>
+      <% if task.is_customer_order %>
+        <% if task.active? %>
+          <td><%= best_in_place task.warrantyorder, :activity, 
+                  url: task_path(task.id), 
+                  param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                  as: :select,
+                  collection: [["Pending Shipment", "Pending Shipment"], ["Shipped", "Shipped"], ["Cancelled", "Cancelled"], ["Pending Further Action", "Pending Further Action"]], 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <td><%= task.warrantyorder.activity %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.warrantyorder, :shipping_carrier, 
+                  url: task_path(task.id), 
+                  param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                  as: :select,
+                  place_holder: 'Pick Carrier...',
+                  collection: [["",""], ["UPS", "UPS"], ["FedEx", "FedEx"], ["USPS", "USPS"], ["DHL", "DHL"], ["Other", "Other"]], 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <td><%= task.warrantyorder.shipping_carrier %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.warrantyorder, :tracking_number, 
+                  url: task_path(task.id), 
+                  place_holder: 'Enter Tracking...',
+                  param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <% if task.warrantyorder.shipping_carrier == "UPS" %>
+            <td>
+              <a href='//wwwapps.ups.com/WebTracking/processInputRequest?AgreeToTermsAndConditions=yes&loc=en_US&tracknum=<%= task.warrantyorder.tracking_number %>' 
+                 target='_blank'><%= task.warrantyorder.tracking_number %>
+              </a>
+            </td>
+          <% elsif task.warrantyorder.shipping_carrier == "FedEx" %>
+            <td><a href='//www.fedex.com/apps/fedextrack/?action=track&tracknumbers=<%= task.warrantyorder.tracking_number %>&locale=en_US&cntry_code=us' target='_blank'><%= task.warrantyorder.tracking_number %></a></td>
+          <% elsif task.warrantyorder.shipping_carrier == "USPS" %>
+            <td><a href='//tools.usps.com/go/TrackConfirmAction?qtc_tLabels1=<%= task.warrantyorder.tracking_number %>' target='_blank'><%= task.warrantyorder.tracking_number %></a></td>
+          <% end %>
+        <% end %>
+        <% if task.active? %>
+          <td>$<%= best_in_place task.warrantyorder, :shipping_cost,
+                    url: task_path(task.id),
+                    place_holder: '0.00',
+                    param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]",
+                    html_attrs: { size: 4 },
+                    class: 'btn btn-default',
+                    inner_class: 'input-small'
+                %>
+          </td>
+        <% else %>
+          <td><%= task.warrantyorder.shipping_cost %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.warrantyorder, :po_number,
+                    url: task_path(task.id),
+                    place_holder: 'None Indicated',
+                    param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]",
+                    class: 'btn btn-default',
+                    inner_class: 'input-small'
+                %>
+          </td>
+        <% else %>
+          <td><%= task.warrantyorder.po_number %></td>
+        <% end %>
+      <% end %>
+      <% if task.is_store_order %>
+        <% if task.active? %>
+          <td><%= best_in_place task.storeorder, :activity, 
+                  url: task_path(task.id), 
+                  param: "task[storeorder_attributes][id]=#{task.storeorder.id}&task[storeorder_attributes]", 
+                  as: :select,
+                  collection: [["Pending Shipment", "Pending Shipment"], ["Shipped", "Shipped"], ["Cancelled", "Cancelled"], ["Pending Further Action", "Pending Further Action"]], 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <td><%= task.storeorder.activity %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.storeorder, :shipping_carrier, 
+                  url: task_path(task.id), 
+                  param: "task[storeorder_attributes][id]=#{task.storeorder.id}&task[storeorder_attributes]", 
+                  as: :select,
+                  place_holder: 'Pick Carrier...',
+                  collection: [["",""], ["UPS", "UPS"], ["FedEx", "FedEx"], ["USPS", "USPS"], ["DHL", "DHL"], ["Other", "Other"]], 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <td><%= task.storeorder.shipping_carrier %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.storeorder, :tracking_number, 
+                  url: task_path(task.id), 
+                  place_holder: 'Enter Tracking...',
+                  param: "task[storeorder_attributes][id]=#{task.storeorder.id}&task[storeorder_attributes]", 
+                  class: 'btn btn-default', 
+                  inner_class: 'input-small'
+              %>
+          </td>
+        <% else %>
+          <% if task.storeorder.shipping_carrier == "UPS" %>
+            <td><a href='//wwwapps.ups.com/WebTracking/processInputRequest?AgreeToTermsAndConditions=yes&loc=en_US&tracknum=<%= task.storeorder.tracking_number %>' target='_blank'><%= task.storeorder.tracking_number %></a></td>
+          <% elsif task.storeorder.shipping_carrier == "FedEx" %>
+            <td><a href='//www.fedex.com/apps/fedextrack/?action=track&tracknumbers=<%= task.storeorder.tracking_number %>&locale=en_US&cntry_code=us' target='_blank'><%= task.storeorder.tracking_number %></a></td>
+          <% elsif task.storeorder.shipping_carrier == "USPS" %>
+            <td><a href='//tools.usps.com/go/TrackConfirmAction?qtc_tLabels1=<%= task.storeorder.tracking_number %>' target='_blank'><%= task.storeorder.tracking_number %></a></td>
+          <% end %>
+        <% end %>
+        <% if task.active? %>
+          <td>$<%= best_in_place task.storeorder, :shipping_cost,
+                    url: task_path(task.id),
+                    place_holder: '0.00',
+                    param: "task[storeorder_attributes][id]=#{task.storeorder.id}&task[storeorder_attributes]",
+                    html_attrs: { size: 4 },
+                    class: 'btn btn-default',
+                    inner_class: 'input-small'
+                %>
+          </td>
+        <% else %>
+          <td><%= task.storeorder.shipping_cost %></td>
+        <% end %>
+        <% if task.active? %>
+          <td><%= best_in_place task.storeorder, :po_number,
+                    url: task_path(task.id),
+                    place_holder: 'None Indicated',
+                    param: "task[storeorder_attributes][id]=#{task.storeorder.id}&task[storeorder_attributes]",
+                    class: 'btn btn-default',
+                    inner_class: 'input-small'
+                %>
+          </td>
+        <% else %>
+          <td><%= task.storeorder.po_number %></td>
+        <% end %>
+      <% end %>
+      <td><%= best_in_place task, :deadline, :display_as => :deadstrf, as: :date, :id => 'datepicker', class: 'btn btn-default', inner_class: 'input-small' %></td>
+      <td><%= render "shipping_address", :task => task %> | 
+          <%= task.user.profile.name %> | 
+          <%= task.created_at.strftime('%B %d, %Y') %> | 
+          <% task.task_products.each do |tp| %>
+            <% if !tp.item.blank? %>
+              <%= tp.item.item_select %>
+            <% end %>
+          <% end %> | 
+          <% if !task.uploads.blank? %>
+            <% task.uploads.each do |upload| %>
+              <% if upload.upload.exists? %>
+                <%= upload.upload.url %>, <%= upload.upload_file_name %>
+              <% end %>
+            <% end %>
+          <% else %>
+            No Files Attached
+          <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

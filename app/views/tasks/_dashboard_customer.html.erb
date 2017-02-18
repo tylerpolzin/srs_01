@@ -1,0 +1,108 @@
+<p class="store-showheader text-center">Customer Orders</p><br>
+<div class="container-fluid">
+  <table id = "coTable" class="display table table-bordered">
+    <thead class="selection-header">
+      <tr>
+        <th><div style='width: 220px'>Task Name</div></th>
+        <th><div style='width: 120px'>Task Status</div></th>
+        <th><div style='width: 250px'>Products Ordered</div></th>
+        <th><div style='width: 140px'>Shipping Activity</div></th>
+        <th><div style='width: 80px'>Shipping Carrier</div></th>
+        <th><div style='width: 130px'>Tracking Number</div></th>
+        <th><div style='width: 110px'>Shipping Cost</div></th>
+        <th><div style='width: 200px'>Shipping Address</div></th>
+        <th><div style='width: 110px'>PO #</div></th>
+        <th><div style='width: 350px'>Notes</div></th>
+        <th><div style='width: 80px'>Initiated By</div></th>
+        <th><div style='width: 100px'>Task Created</div></th>
+        <th><div style='width: 100px'>Due Date</div></th>
+      </tr>
+    </thead>
+    <tbody class="task-dashboard-table">
+      <% @cotasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.task_name, task_path(id: task.id) %></td>
+        <td><%= best_in_place task, :status,
+                as: :select,
+                collection: [["Pending Acceptance", "Pending Acceptance"], ["Accepted", "Accepted"]],
+                class: 'btn btn-default',
+                inner_class: 'input-small' %>
+        </td>
+        <td>
+          <% task.task_products.each do |tp| %>
+            <% if !tp.item.blank? %>
+              <p><%= link_to tp.item.item_select, item_path(tp.item) %></p>
+            <% else %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= best_in_place task.warrantyorder, :activity, 
+                url: task_path(task.id), 
+                param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                as: :select,
+                collection: [["Pending Shipment", "Pending Shipment"], ["Shipped", "Shipped"], ["Cancelled", "Cancelled"], ["Pending Further Action", "Pending Further Action"]], 
+                class: 'btn btn-default', 
+                inner_class: 'input-small'
+            %>
+        </td>
+        <td><%= best_in_place task.warrantyorder, :shipping_carrier, 
+                url: task_path(task.id), 
+                param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                as: :select,
+                collection: [["UPS", "UPS"], ["FedEx", "FedEx"], ["USPS", "USPS"], ["DHL", "DHL"], ["Other", "Other"]], 
+                class: 'btn btn-default', 
+                inner_class: 'input-small'
+            %>
+        </td>
+        <td><%= best_in_place task.warrantyorder, :tracking_number, 
+                url: task_path(task.id), 
+                param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]", 
+                class: 'btn btn-default', 
+                inner_class: 'input-small'
+            %>
+        </td>
+        <td>$<%= best_in_place task.warrantyorder, :shipping_cost,
+                  url: task_path(task.id),
+                  param: "task[warrantyorder_attributes][id]=#{task.warrantyorder.id}&task[warrantyorder_attributes]",
+                  class: 'btn btn-default',
+                  inner_class: 'input-small'
+              %>
+        </td>
+        <td>
+          <% if !task.warrantyorder.customer.company.blank? %>
+            <p><%= task.warrantyorder.customer.company %></p>
+          <% end %>
+          <p><%= task.warrantyorder.customer.firstname %> <%= task.warrantyorder.customer.lastname %></p>
+          <p><%= task.warrantyorder.customer.address1 %></p>
+          <% if !task.warrantyorder.customer.address2.blank? %>
+            <p><%= task.warrantyorder.customer.address2 %></p>
+          <% end %>
+          <% if !task.warrantyorder.customer.address3.blank? %>
+            <p><%= task.warrantyorder.customer.address3 %></p>
+          <% end %>
+          <p><%= task.warrantyorder.customer.customer_csz %></p>
+          <% if !task.warrantyorder.customer.phone.blank? %>
+            <p><%= task.warrantyorder.customer.phone %></p>
+          <% end %>
+          <% if !task.warrantyorder.customer.email.blank? %>
+            <p><%= task.warrantyorder.customer.email %></p>
+          <% end %>
+        </td>
+        <% if !task.warrantyorder.po_number.blank? %>
+          <td><%= task.warrantyorder.po_number %></td>
+        <% else %>
+          <td>No PO # Indicated</td>
+        <% end %>
+        <td><%= best_in_place task, :notes, as: :textarea, class: 'form-control', inner_class: 'form-control' %></td>
+        <td><%= task.user.profile.name %></td>
+        <td><%= task.created_at.strftime("%B %d, %Y") %></td>
+        <% if !task.deadline.blank? %>
+          <td><%= task.deadline.strftime("%B %d, %Y") %></td>
+        <% else %>
+          <td>None Indicated</td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="well well-sm show-well">
+      <div class="row">
+        <div class "col-md-1">
+          <%= link_to "New Customer", new_customer_path %>
+        </div>
+        <div class="col-md-12">
+          <p class="store-showheader text-center">View Customer</p>
+        </div>
+        <div class="form-horizontal">
+          <div class="col-md-6">
+            <p class="show-vendor-name"><%= @customer.firstname %> <%= @customer.lastname %></p>
+            <table class="table table-bordered store-showtable">
+              <tr>
+                <td>Company</td>
+                <td><%= @customer.company %></td>
+              </tr>
+              <tr>
+                <td>Address 1</td>
+                <td><%= @customer.address1 %></td>
+              </tr>
+              <tr>
+                <td>Address 2</td>
+                <td><%= @customer.address2 %></td>
+              </tr>
+              <tr>
+                <td>Address 3</td>
+                <td><%= @customer.address3 %></td>
+              </tr>
+              <tr>
+                <td>City</td>
+                <td><%= @customer.city %></td>
+              </tr>
+              <tr>
+                <td>State</td>
+                <td><%= @customer.state %></td>
+              </tr>
+              <tr>
+                <td>Zipcode</td>
+                <td><%= @customer.zipcode %></td>
+              </tr>
+              <tr>
+                <td>Phone #</td>
+                <td><%= @customer.phone %></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><%= @customer.email %></td>
+              </tr>
+              <tr>
+                <td>Customer Creation Date</td>
+                <td><%= @customer.created_at %></td>
+              </tr>
+              <tr>
+                <td>Customer Last Updated</td>
+                <td><%= @customer.updated_at %></td>
+              </tr>
+            </table>
+            <div class="col-md-6"></div>
+            <div class="form-group">  
+              <%= button_to "Edit Customer Information", edit_customer_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="well">
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

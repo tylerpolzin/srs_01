@@ -14,6 +14,8 @@ class Profiles < ActiveRecord::Migration[5.0]
       t.string :phone2_type
       t.string :email
       t.text :notes
+      t.float :lat
+      t.float :long
       t.timestamps
     end
   end

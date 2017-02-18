@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="col-md-12">
     <div class="well well-sm show-well">
       <div class="row">
@@ -7,7 +7,11 @@
           <p class="storename-text text-center"><%= @stores.name %> (<%= @stores.abbrv %> #<%= @stores.yard %>)</p>
           <div class="address-text text-center">
             <p><%= @stores.address %></p>
-            <p><%= @stores.city %>, <%= @stores.state %> <%= @stores.zipcode.insert(5, '-') %></p>
+            <% if @stores.zipcode.length > 5 %>
+              <p><%= @stores.store_csz %></p>
+            <% else %>
+              <p><%= @stores.store_csy %></p>
+            <% end %>
           </div>
           <table class="table table-bordered store-showtable">
             <tr>
@@ -19,12 +23,34 @@
               <td><%= @stores.phone.insert(0, '(').insert(4, ')').insert(5, ' ').insert(9, '-') %></td>
             </tr>
             <tr>
+              <td>Email Addresses</td>
+              <td>
+                <select id="storeEmails" class="form-control">
+                  <option name="<%= @stores.abbrv %>generalmanager@menards.com">General Manager (<%= @stores.abbrv %>generalmanager@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>humanresources@menards.com">Human Resources (<%= @stores.abbrv %>humanresources@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>frontoffice@menards.com">Front Office (<%= @stores.abbrv %>frontoffice@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>buildingmaterials@menards.com">Building Materials (<%= @stores.abbrv %>buildingmaterials@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>hardware@menards.com">Hardware (<%= @stores.abbrv %>hardware@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>electrical@menards.com">Electrical (<%= @stores.abbrv %>electrical@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>millwork@menards.com">Millwork (<%= @stores.abbrv %>millwork@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>cabapps@menards.com">Cabinets & Appliances (<%= @stores.abbrv %>cabapps@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>wallcoverings@menards.com">Wallcoverings (<%= @stores.abbrv %>wallcoverings@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>plumbing@menards.com">Plumbing (<%= @stores.abbrv %>plumbing@menards.com)</option>
+                  <option name="<%= @stores.abbrv %>floorcoverings@menards.com">Floorcoverings (<%= @stores.abbrv %>floorcoverings@menards.com)</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
               <td>Serviced By</td>
               <td><%= @stores.service_rep.titleize %></td>
             </tr>
             <tr>
               <td>Last Visit</td>
-              <td><%= @stores.lastvisit.strftime("%B %d, %Y") %></td>
+              <% if !@stores.lastvisit.blank? %>
+                <td><%= @stores.lastvisit.strftime("%B %d, %Y") %></td>
+              <% else %>
+                <td>No logged visits yet</td>
+              <% end %>
             </tr>
             
             <tr>
@@ -40,7 +66,12 @@
               <td><%= @stores.notes %></td>
             </tr>
           </table>
-          <%= button_to "Edit Info", edit_store_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= button_to "Edit Information", edit_store_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+            </div>
+          </div>
         </div>
 <!-- Start 'Callsheet History' -->
         <div class="col-md-4">
@@ -53,10 +84,10 @@
               </tr>
             </thead>
             <tbody class="store-callsheet-history-table">
-            <% @callsheets.each do |s| %>
+            <% @callsheets.each do |c| %>
               <tr>
-                <td><%= s.visit_date.strftime("%B %d, %Y") %></td>
-                <td><%= button_to "View Summary", callsheet_path(id: s.id), method: :get, class: 'btn btn-info' %></td>
+                <td><%= c.visit_date.strftime("%B %d, %Y") %></td>
+                <td><%= button_to "View Summary", callsheet_path(id: c), method: :get, class: 'btn btn-info' %></td>
               </tr>
             <% end %>
             </tbody>
@@ -86,14 +117,23 @@
             <thead class="selection-header">
               <tr>
                 <th>Order Date</th>
-                <th>Product Ordered</th>
+                <th>Products Ordered</th>
               </tr>
             </thead>
             <tbody class="store-callsheet-history-table">
-              <tr>
-                <td>Order Date goes here</td>
-                <td>Product Ordered goes here</td>
-              </tr>
+            <% @tasks.each do |t| %>
+                <tr>
+                  <td>
+                    <span><%= t.created_at.strftime("%B %d, %Y") %></span>
+                    <span><br/><%= button_to "View Task", task_path(id: t), method: :get, class: 'btn btn-info' %></span>
+                  </td>
+                  <td>
+                    <% t.task_products.each do |tpc| %>
+                      <p><%= link_to tpc.item.item_select, item_path(tpc.item) %></p>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
             </tbody>
           </table>
           <button class="btn btn-primary">Literature Request Form</button>

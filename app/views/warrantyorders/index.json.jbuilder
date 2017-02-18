@@ -1,0 +1,1 @@
+json.array! @warrantyorders, partial: 'warrantyorders/warrantyorder', as: :warrantyorder

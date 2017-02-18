@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well well-sm show-well">
+        <h1 class="text-center">Update <%= @task.task_type %></h1>
+        <p class="text-center"><%= @task.task_name %></p>
+        <%= form_for @task, url: tasks_path, method: :patchT do |f| %>
+          <% if @task.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+              <ul>
+              <% @task.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <%= f.label :task_name, "Description:", class: 'col-sm-4 control-label' %>
+              <div class="col-sm-8">
+                <%= f.text_field :task_name, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :status, "Task Status:", class: 'col-sm-4 control-label' %>
+              <div class="col-sm-8">
+                <%= f.select :status, options_for_select(['Pending Acceptance', 'Accepted', 'Cancelled']),{}, class: 'form-control' %>
+              </div>
+            </div>
+<!-- WARRANTY ORDER FORM GOES HERE -->
+            <div class="storeOrderForm">
+              <div class="well">
+                <%= f.fields_for :storeorder, @storeorder do |s| %>
+                  <div class="form-group">
+                    <%= s.label :po_number, "PO Number:", class: 'col-sm-4 control-label' %>
+                    <div class="col-sm-8">
+                      <%= s.text_field :po_number, :id => 'newTaskStorePOSelect', class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <%= s.label :activity, "Shipping Status:", class: 'col-sm-4 control-label' %>
+                    <div class="col-sm-8">
+                      <%= s.select :activity, options_for_select(['Pending Shipment', 'Shipped']),{}, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <%= s.label :shipping_carrier, "Shipping Carrier:", class: 'col-sm-4 control-label' %>
+                    <div class="col-sm-8">
+                      <%= s.select :shipping_carrier, options_for_select(['USPS (First Class)', 'USPS (Priority)', 'UPS', 'FedEx', 'DHL', 'Other...']),{:include_blank => 'Select Carrier...'}, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <%= s.label :tracking_number, "Tracking Number:", class: 'col-sm-4 control-label' %>
+                    <div class="col-sm-8">
+                      <%= s.text_field :tracking_number, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <%= s.label :shipping_cost, "Shipping Cost:", class: 'col-sm-4 control-label' %>
+                    <div class="col-sm-8">
+                      <%= s.text_field :shipping_cost, class: 'form-control' %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :notes, "Notes:", class: 'col-sm-4 control-label' %>
+              <div class="col-sm-8">
+                <%= f.text_area :notes, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :active, "Active?", class: 'col-sm-4 control-label' %>
+              <div class="col-sm-8">
+                <%= f.check_box :active %>
+                <div class="slider-round"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :finished_at, "Completed?", class: 'col-sm-4 control-label' %>
+              <div class="col-sm-8">
+                <%= f.text_field :finished_at, :value => Time.now, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <%= f.submit "Update Task", :id => 'newTaskSubmitButton', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

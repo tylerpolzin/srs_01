@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well well-sm show-well">
+        <h1 class="text-center">New Task</h1>
+        <%= form_for @task, url: tasks_path, method: :post, :html => {:multipart => true } do |f| %>
+          <% if @task.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+              <ul>
+              <% @task.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <%= f.label :task_name, "Task Name:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.text_field :task_name, :id => 'taskAssignTaskName', class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :task_type, "Task Type:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.select :task_type, options_for_select(['SRS Task', 'Store Order', 'Customer Order']),{:include_blank => 'Select Type...'}, :id => 'newTaskTaskTypeSelect', class: 'form-control' %>
+              </div>
+            </div>
+            
+            <div class="warrantyOrderForm" style="display: none;">
+              <%= f.fields_for :warrantyorder, @warrantyorder do |w| %>
+                <div class="form-group">
+                  <span id='customerIdDiscovery' value=<%= Customer.maximum(:id).to_i.next %>></span>
+                  <%= w.label :customer_id, "Customer:", class: 'col-sm-3 control-label' %>
+                  <div class='col-sm-9'>
+                    <%= w.collection_select(:customer_id, @customerselect, :id, :customer_select, {:prompt => 'Select Customer...', :include_blank => "Create New..."}, {:id => 'newTaskCustomerSelect', :class => 'form-control'}) %>
+                  </div>
+                </div>
+                  <div class="newCustomerForm" style="display: none;">
+                    <div class="well">
+                      <%= w.fields_for :customer, @customer do |c| %>
+                        <%= render "customer", :f => c %>
+                      <% end %>
+                    </div>
+                  </div>
+                <div class="form-group">
+                  <%= w.label :po_number, "PO Number:", class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-9">
+                    <%= w.text_field :po_number, :id => 'newTaskWarrantyPOSelect', class: 'form-control' %>
+                  </div>
+                </div>
+                <%= w.hidden_field :activity, :id => 'customerOrderActivityHidden', :value => "" %>
+              <% end %>
+            </div>
+            
+            <div class="storeOrderForm" style="display: none;">
+              <%= f.fields_for :storeorder, @storeorder do |s| %>
+                <div class="form-group">
+                  <%= s.label :store_id, "Store:", class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-9">
+                    <%= s.collection_select(:store_id, @stores, :id, :store_select, {:include_blank => 'Select Location...'}, {:class => 'form-control', :id => 'newTaskStoreSelect'}) %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <%= s.label :po_number, "PO Number:", class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-9">
+                    <%= s.text_field :po_number, :id => 'newTaskStorePOSelect', class: 'form-control' %>
+                  </div>
+                </div>
+                <%= s.hidden_field :activity, :id => 'storeOrderActivityHidden', :value => "" %>
+              <% end %>
+            </div>
+            
+            <div class="productsForOrderForm well" style="display: none;">
+              <%= f.fields_for :task_products, @product do |builder| %>
+                <%= render "task_product", :f => builder %>
+              <% end %>
+              <p><%= add_child_link "Add Product", :task_products %></p></br></br>
+              <%= new_child_fields_template f, :task_products %>
+            </div>
+            
+              <%= f.hidden_field :initiated_by, :value => current_user.id %>
+            <div class="form-group">
+              <%= f.label :initiated_for, "Initiated For:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.collection_select(:initiated_for, @profiles, :id, :name, {:include_blank => 'Select Assignee...'}, {:class => 'form-control'}) %>
+              </div>
+            </div>
+                <%= f.hidden_field :active, :value => 'true' %>
+                <%= f.hidden_field :status, :value => "Pending Acceptance" %>
+            <div class="form-group">
+              <%= f.label :upload, "Attached File:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <div class="well">
+                  <%= f.fields_for :uploads, @upload do |u| %>
+                    <%= render "upload", :f => u %>
+                  <% end %>
+                  <p><%= add_child_link "Add File", :uploads %></p></br></br>
+                  <%= new_child_fields_template f, :uploads %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :notes, "Additional Notes:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.text_field :notes, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :deadline, "Due Date:", class: 'col-sm-3 control-label' %>
+              <div class="col-sm-9">
+                <%= f.text_field :deadline, :value => Time.now+7.days, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+            <button id="newTaskSubmit" class="btn btn-primary">Create Task</button>
+          <div class="actions">
+            <%= f.submit "Create Task", :id => 'newTaskSubmitButton', class: 'hidden' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="jstemplates">
+  <%= yield :jstemplates %>
+</div>
+<div id="uploadtemplates">
+  <%= yield :uploadtemplates %>
+</div>

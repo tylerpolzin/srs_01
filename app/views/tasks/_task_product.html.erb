@@ -1,0 +1,10 @@
+<div class="fields">
+  <div class="form-group">
+    <%= f.label :product_id, "Product:", class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.collection_select(:product_id, Item.order(store_orderable: :desc), :id, :item_select, {:include_blank => 'Select Product...'}, {:class => 'form-control'}) %>
+      <%= remove_child_link "Remove Product", f %>
+    </div>
+  </div>
+</div>
+

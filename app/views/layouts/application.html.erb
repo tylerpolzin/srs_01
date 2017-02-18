@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SRS Portal</title>
+    <title><%= @title || "SRS Portal" %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100|Quicksand:400,700|Abel" rel="stylesheet">
   </head>
 
   <body>
   <% if user_signed_in? %>
+<!--Top Navigation -->
     <nav class="navbar navbar-default navbar-static-top navbar-bg" role="navigation">
-      <div class='container'>
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
             <span class="sr-only">Toggle navigation</span>
 
           </button>
           <%= link_to "//www.strategicretailsolutions.com", class: "navbar-brand" do %>
-            Strategic Retail Solutions //
-          <% end %>
-          <%= link_to root_path, class: "navbar-brand" do %>
-          Rep Portal
+            Strategic Retail Solutions
           <% end %>
         </div>
         <div class="collapse navbar-collapse" id="main-nav-collapse">
@@ -39,30 +37,30 @@
                 <li><a href="#">Tuscany</a></li>
               </ul>
             </li>
-<!-- Dropdown for Reps -->
+            <!-- Dropdown for Reps -->
             <li class="dropdown"><% if current_user.has_role? (:reps) %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rep Tools <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "User Index", user_path(current_user) %></li>
                 <li><%= link_to "Create Profile", new_user_profile_path(user_id: current_user.id) if user_signed_in? %></li>
                 <li><%= link_to "Shipment Calculator", new_shipment_path %></li>
-                <li><%= link_to "Literature Requests", about_path %></li>
+                <li><%= link_to "Create Task", new_task_path %></li>
+                <li><%= link_to "Task Dashboard", task_dashboard_path %></li>
                 <li><%= link_to "Item Index", items_path %></li>
                 <li><%= link_to "Callsheets", callsheet_dashboard_path %></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "Store List", stores_path %></li>
-                <li><%= link_to "Territory Map", map_path %></li>
+                <li><%= link_to "Territory Map", territory_map_path %></li>
                 <li><%= link_to "Orders Testbench", ecommorders_path %></li>
               </ul>
             </li>
             <% else %><% end %>
-<!-- Dropdown for Mackenzie -->
+            <!-- Dropdown for Padula -->
             <li class="dropdown"><% if current_user.has_role? (:padula) %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kenzie's Tools <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Orders", orders_path %></li>
+                <li><%= link_to "Warranty Uploads", orders_path %></li>
                 <li><%= link_to "Inventory", items_path %></li>
-                <li><%= link_to "Timesheet", orders_path %></li>
               </ul>
             </li>
             <% else %><% end %>
@@ -75,9 +73,66 @@
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
+<!--Sidebar Navigation-->
+    <nav class="nav-side-menu">
+      <div class="brand">Rep Portal</div>
+      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+      <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
+          <li>
+            <a href="#">
+              <i class="fa fa-dashboard fa-lg"></i> Home
+            </a>
+          </li>
+          <li data-toggle="collapse" data-target="#products" class="collapsed">
+            <a data-target="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="products">
+            <li class="active"><a href="#">CSS3 Animation</a></li>
+            <li><a href="#">General</a></li>
+            <li><a href="#">Buttons</a></li>
+            <li><a href="#">Tabs &amp; Accordions</a></li>
+            <li><a href="#">Typography</a></li>
+            <li><a href="#">FontAwesome</a></li>
+            <li><a href="#">Slider</a></li>
+            <li><a href="#">Panels</a></li>
+            <li><a href="#">Widgets</a></li>
+            <li><a href="#">Bootstrap Model</a></li>
+          </ul>
+          <li data-toggle="collapse" data-target="#service" class="collapsed">
+            <a data-target="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="service">
+            <li>New Service 1</li>
+            <li>New Service 2</li>
+            <li>New Service 3</li>
+          </ul>
+          <li data-toggle="collapse" data-target="#new" class="collapsed">
+            <a data-target="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="new">
+            <li>New New 1</li>
+            <li>New New 2</li>
+            <li>New New 3</li>
+          </ul>
+          <li>
+            <a href="#">
+              <i class="fa fa-user fa-lg"></i> Profile
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-users fa-lg"></i> Users
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="main-content">
       <%= yield %>
+    </div>
   <% else %>
-        <nav class="navbar navbar-default navbar-static-top navbar-bg" role="navigation">
+    <nav class="navbar navbar-default navbar-static-top navbar-bg" role="navigation">
       <div class='container'>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
@@ -104,6 +159,10 @@
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
+
+    
+    
+    
       <%= yield %>
   <% end %>
   </body>

@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  resources :parts
+  resources :uploads
+  resources :stockmovements
+  resources :customers
+  resources :warrantyorders
+  resources :task_products
+  resources :tasks
+  get 'task_dashboard', to: 'tasks#dashboard'
+  resources :storeorders
   resources :shipments
   devise_for :users, controllers: { registrations: "registrations"}
   root to: 'pages#home'
   get 'about', to: 'pages#about'
   get 'orders', to: 'pages#orders'
-  get 'map', to: 'pages#map'
   resources :stores
+  get 'territory_map', to: 'stores#map'
   resources :items
   resources :callsheets
   get 'callsheet_dashboard', to: 'callsheets#dashboard'

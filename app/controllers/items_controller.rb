@@ -27,6 +27,15 @@ class ItemsController < ApplicationController
 
    def update
       @item = Item.find(params[:id])
+      if @item.update_attributes(item_params)
+         if @item.remove_avatar == true
+            @item.avatar = nil
+            @item.save
+         end
+         redirect_to item_path(params[:id])
+      else
+         render action: :edit
+      end
    end
    
    def destroy
@@ -41,7 +50,7 @@ class ItemsController < ApplicationController
    private
       
       def item_params
-         params.require(:item).permit(:vendor_name, :model_number, :part_number, :upc, :description, :picture, :weight, :location, :count_on_hand, :active, :created_at, :updated_at)
+         params.require(:item).permit(:vendor_name, :model_number, :part_number, :upc, :description, :avatar, :remove_avatar, :weight, :location, :count_on_hand, :store_orderable, :active, :created_at, :updated_at)
       end
    
 end

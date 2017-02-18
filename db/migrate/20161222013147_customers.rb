@@ -12,6 +12,9 @@ class Customers < ActiveRecord::Migration[5.0]
       t.string :zipcode
       t.string :phone
       t.string :email
+      t.integer :warrantyorder_id
+      t.float :lat
+      t.float :long
       t.timestamps
     end
   end

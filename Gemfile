@@ -33,7 +33,12 @@ gem 'axlsx_rails'
 gem 'acts_as_xlsx',
   :git => "git://github.com/straydogstudio/acts_as_xlsx.git"
 gem "paperclip", "~> 5.0.0"
-
+gem 'twitter-bootstrap-rails-confirm'
+gem 'best_in_place'
+gem 'underscore-rails'
+gem 'gmaps4rails'
+gem 'ajax-datatables-rails'
+gem 'jquery-fileupload-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '3.0'

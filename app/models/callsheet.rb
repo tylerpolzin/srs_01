@@ -7,8 +7,9 @@ class Callsheet < ActiveRecord::Base
                             :hw_sku_6399949, :hw_sku_6399978, :hw_sku_6399979, :hw_lit_thermostat, :hw_lit_airquality, :honeywell_notes, :summit_sku_6471315, :summit_sku_6471317, :summit_sku_6471323, :summit_sku_6471320, :summit_sku_6471321, :summit_sku_6471330, 
                             :summit_sku_6471333, :summit_sku_6471305, :summit_sku_6471322, :summit_sku_6471302, :summit_sku_6473100, :summit_sku_6471335, :summit_sku_6471325, :summit_sku_6473918, 
                             :summit_sku_6473917, :summit_sku_6473900, :summit_sku_6473136, :summit_notes, :allstone_lit, :allstone_notes, :tuscany_notes, :callsheet_complete]
-  has_one :store
-  
+  belongs_to :store
+  belongs_to :new_callsheet
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names

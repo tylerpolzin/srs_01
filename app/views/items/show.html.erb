@@ -12,8 +12,6 @@
           <div class="col-md-6">
             <p class="show-vendor-name"><%= @item.vendor_name %></p>
             <p class="show-item-description"><%= @item.description %></p>
-            <p class="show-active-button"><button class="btn btn-success">Active</button></p>
-            <p class="btn-success">Test</p>
             <table class="table table-bordered store-showtable">
               <tr>
                 <td>Model #</td>
@@ -40,6 +38,14 @@
                 <td><%= @item.count_on_hand %></td>
               </tr>
               <tr>
+                <td>Active?</td>
+                <td><%= @item.active %></td>
+              </tr>
+              <tr>
+                <td>Store Orderable?</td>
+                <td><%= @item.store_orderable %></td>
+              </tr>
+              <tr>
                 <td>Item Creation Date</td>
                 <td><%= @item.created_at %></td>
               </tr>
@@ -48,13 +54,16 @@
                 <td><%= @item.updated_at %></td>
               </tr>
             </table>
+            <div class="col-md-6"></div>
+            <div class="form-group">  
+              <%= button_to "Edit Item Information", edit_item_path(id: params[:id]), method: :get, class: 'btn btn-primary' %>
+            </div>
           </div>
           <div class="col-md-6">
             <div class="well">
-              <p>Picture goes here</p>
+              <p><%= image_tag @item.avatar.url(:medium) %></p>
             </div>
           </div>
-          
         </div>
       </div>
     </div>

@@ -3,6 +3,9 @@ class Callsheets < ActiveRecord::Migration[5.0]
     create_table :callsheets do |t|
       t.integer :user_id
       t.integer :store_id
+      t.integer :store_number
+      t.string :store_abbrv
+      t.string :store_name
       t.date :visit_date
       t.string :dept_manager_400
       t.string :ce_stairdisplays

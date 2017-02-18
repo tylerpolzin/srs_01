@@ -1,0 +1,29 @@
+<% if task.is_customer_order %>
+  <% if !task.warrantyorder.customer.company.blank? %>
+    <p><%= task.warrantyorder.customer.company %></p>
+  <% end %>
+  <p><%= task.warrantyorder.customer.firstname %> <%= task.warrantyorder.customer.lastname %></p>
+  <p><%= task.warrantyorder.customer.address1 %></p>
+  <% if !task.warrantyorder.customer.address2.blank? %>
+    <p><%= task.warrantyorder.customer.address2 %></p>
+  <% end %>
+  <% if !task.warrantyorder.customer.address3.blank? %>
+    <p><%= task.warrantyorder.customer.address3 %></p>
+  <% end %>
+  <p><%= task.warrantyorder.customer.customer_csz %></p>
+  <% if !task.warrantyorder.customer.phone.blank? %>
+    <p><%= task.warrantyorder.customer.phone_h %></p>
+  <% end %>
+  <% if !task.warrantyorder.customer.email.blank? %>
+    <p><%= task.warrantyorder.customer.email %></p>
+  <% end %>
+<% end %>
+<% if task.is_store_order %>
+  <p><%= task.storeorder.store.store_identifier %></p>
+  <p><%= task.storeorder.store.address %></p>
+  <% if task.storeorder.store.zipcode.length > 5 %>
+    <p><%= task.storeorder.store.store_csz %></p>
+  <% else %>
+    <p><%= task.storeorder.store.store_csy %></p>
+  <% end %>
+<% end %>

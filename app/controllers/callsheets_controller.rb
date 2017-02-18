@@ -22,6 +22,8 @@ class CallsheetsController < ApplicationController
   def create
     @callsheet = Callsheet.new(callsheet_params)
     if @callsheet.save
+      Store.find_by(id: @callsheet.store_id).update(lastvisit: @callsheet.visit_date)
+
       redirect_to callsheet_dashboard_path
     else
       render action: :new
@@ -31,12 +33,13 @@ class CallsheetsController < ApplicationController
   def edit
     @callsheet = Callsheet.find(params[:id])
     @callsheet.user_id = current_user.id
-    
+
   end
   
   def update
     @callsheet = Callsheet.find(params[:id])
     if @callsheet.update(callsheet_params)
+      Store.find_by(id: @callsheet.store_id).update(lastvisit: @callsheet.visit_date)
       redirect_to callsheet_dashboard_path
     else
       render action: :edit
